@@ -51,7 +51,8 @@
     .jpi-burger { display: flex !important; }
     .jpi-arrows { display: flex !important; }
     [data-hero="6"] { margin-left: 0 !important; }
-    .jpi-roster { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-padding-left: 2px; }
+    .jpi-rosterbtn { display: none !important; }
+    .jpi-roster { display: flex !important; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-padding-left: 2px; }
     .jpi-roster::-webkit-scrollbar { display: none; }
     .jpi-roster > * { flex: 0 0 calc((100% - 32px) / 3); scroll-snap-align: start; }
     .jpi-pinfo { padding: 8px 9px !important; }
@@ -163,6 +164,20 @@
     </div>
   </section>
 
+  <section data-screen-label="Vídeo" id="video" style="scroll-margin-top:90px;background:#000000">
+    <div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000000">
+      <iframe src="{{ videoSrc }}" title="Jogo pela Integridade" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+      <sc-if value="{{ videoMuted }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ enableSound }}" style="position:absolute;inset:0;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px">
+          <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(5,5,5,0.72);backdrop-filter:blur(10px);border:1px solid rgba(244,244,244,0.3);border-radius:999px;padding:10px 22px;color:#F4F4F4;font-size:14px;font-weight:500">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+            <span>{{ t.videoSoundLabel }}</span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
   <section data-screen-label="Quem veste a camisa" id="camisa" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
     <div style="max-width:1440px;margin:0 auto">
       <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,64px)">
@@ -175,8 +190,8 @@
       <div data-anim="up" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px">
         <div style="font-family:'Asimovian',sans-serif;font-size:clamp(16px,1.8vw,20px);letter-spacing:0.06em;color:{{ fg }}">{{ t.teamGridTitle }}</div>
         <div class="jpi-arrows" style="display:none;gap:10px">
-          <button onClick="{{ rosterPrev }}" aria-label="Anterior" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid rgba(147,147,147,0.5);background:rgba(17,17,17,0.45);color:{{ fg }};display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1">&#8592;</button>
-          <button onClick="{{ rosterNext }}" aria-label="Próximo" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:0;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1">&#8594;</button>
+          <button onClick="{{ rosterPrev }}" aria-label="Anterior" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><span style="display:flex;transform:scaleX(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></button>
+          <button onClick="{{ rosterNext }}" aria-label="Próximo" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><span style="display:flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></button>
         </div>
       </div>
       <div class="jpi-roster" ref="{{ rosterRef }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px">
@@ -190,7 +205,7 @@
           </div>
         </sc-for>
       </div>
-      <div style="display:flex;justify-content:center;margin-top:32px">
+      <div class="jpi-rosterbtn" style="display:flex;justify-content:center;margin-top:32px">
         <button onClick="{{ toggleRoster }}" class="jpi-cta" style="cursor:pointer;border:0;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 28px;font-size:15px;font-weight:500">{{ rosterBtnLabel }}</button>
       </div>
     </div>
@@ -264,19 +279,6 @@
     </div>
   </section>
 
-  <section data-screen-label="Vídeo" id="video" style="scroll-margin-top:90px;background:#000000">
-    <div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000000">
-      <iframe src="{{ videoSrc }}" title="Jogo pela Integridade" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
-      <sc-if value="{{ videoMuted }}" hint-placeholder-val="{{ true }}">
-        <div onClick="{{ enableSound }}" style="position:absolute;inset:0;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px">
-          <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(5,5,5,0.72);backdrop-filter:blur(10px);border:1px solid rgba(244,244,244,0.3);border-radius:999px;padding:10px 22px;color:#F4F4F4;font-size:14px;font-weight:500">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-            <span>{{ t.videoSoundLabel }}</span>
-          </div>
-        </div>
-      </sc-if>
-    </div>
-  </section>
 
   <section data-screen-label="FAQ" id="faq" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
     <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,96px)">
@@ -366,14 +368,18 @@
 class Component extends DCLogic {
   state = { lang: 'pt', theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
   componentDidMount() {
+    this._mq = window.matchMedia('(max-width: 767px)');
+    this._mqCb = () => this.forceUpdate();
+    if (this._mq.addEventListener) this._mq.addEventListener('change', this._mqCb);
     this._rosterTimer = setInterval(() => {
       const el = this._rosterRef && this._rosterRef.current;
       if (!el || !window.matchMedia('(max-width: 767px)').matches) return;
       if (this._rosterHold) return;
-      const step = el.clientWidth * 0.94;
+      const card = el.children[0];
+      const step = card ? card.getBoundingClientRect().width + 16 : el.clientWidth / 3;
       if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 8) el.scrollTo({ left: 0, behavior: 'smooth' });
       else el.scrollBy({ left: step, behavior: 'smooth' });
-    }, 3500);
+    }, 2600);
     this._holdOn = () => { this._rosterHold = true; clearTimeout(this._holdT); };
     this._holdOff = () => { clearTimeout(this._holdT); this._holdT = setTimeout(() => { this._rosterHold = false; }, 5000); };
     setTimeout(() => {
@@ -592,7 +598,8 @@ class Component extends DCLogic {
       { name: 'Nicoly', src: J + '68e3d3ebb9408d97ce48983d_9-Nicol.jpeg' }
     ];
     const openLb = (name, src) => () => this.setState({ lightbox: { name, src } });
-    const visible = this.state.showAllPlayers ? ROSTER : ROSTER.slice(0, 5);
+    const isMob = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+    const visible = isMob ? ROSTER : (this.state.showAllPlayers ? ROSTER : ROSTER.slice(0, 5));
     const players = visible.map(p => ({ ...p, open: openLb(p.name, p.src) }));
     const retroImgs = [
       'assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif',
