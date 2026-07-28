@@ -10,6 +10,10 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://i.vimeocdn.com" crossorigin="anonymous">
+<link rel="preconnect" href="https://f.vimeocdn.com" crossorigin="anonymous">
+<link rel="dns-prefetch" href="https://player.vimeo.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Asimovian&family=Google+Sans+Flex:wght@400;500;700&display=swap" rel="stylesheet">
@@ -24,6 +28,8 @@
   html { scroll-behavior: smooth; }
   @keyframes jpiBounce { 0%, 100% { transform: translateY(0); opacity: 0.7; } 50% { transform: translateY(9px); opacity: 1; } }
   @keyframes jpiGlow { 0%, 100% { box-shadow: 0 0 10px rgba(211,15,21,0.25); } 50% { box-shadow: 0 0 18px rgba(211,15,21,0.45); } }
+  @keyframes jpiVeil { 0%, 40% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes jpiSpin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
   a { color: inherit; text-decoration: none; }
   a:hover { color: #F6C444; }
@@ -64,6 +70,13 @@
   button { font: inherit; }
 </style>
 </helmet>
+  <div id="jpi-loader" style="position:fixed;inset:0;z-index:9999;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(22px,3vh,34px);transition:opacity 0.65s ease">
+    <img src="assets/logo.svg" alt="" style="width:clamp(76px,8vw,108px);height:auto;animation:jpiSpin 1.8s linear infinite" />
+    <div id="jpi-loader-pct" style="font-family:'Asimovian',sans-serif;font-size:clamp(26px,3vw,40px);letter-spacing:0.08em;color:#F4F4F4;line-height:1">0%</div>
+    <div style="width:clamp(160px,22vw,280px);height:3px;border-radius:999px;background:rgba(244,244,244,0.16);overflow:hidden">
+      <div id="jpi-loader-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);transition:width 0.14s linear"></div>
+    </div>
+  </div>
 <div style="width:100%;min-height:100vh;background:{{ bg }};color:{{ fg }};font-family:'Google Sans Flex','Google Sans','DM Sans',Arial,sans-serif;transition:background 0.4s,color 0.4s">
 
   <div aria-hidden="true" style="position:fixed;top:0;left:0;height:4px;z-index:120;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);width:{{ progW }};transition:width 0.1s linear"></div>
@@ -94,8 +107,13 @@
     </nav>
   </sc-if>
 
-  <section data-screen-label="Hero" id="home" style="position:relative;min-height:max(540px,100svh);max-height:none;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background-image:linear-gradient(180deg,rgba(5,5,5,0.9) 0%,rgba(8,8,8,0.68) 35%,rgba(8,8,8,0.72) 70%,rgba(5,5,5,0.95) 100%),url('assets/morumbi.webp');background-size:cover;background-position:center;padding:clamp(64px,7.5vh,88px) clamp(16px,4vw,64px) clamp(32px,4.5vh,56px)">
-    <div style="font-family:'Asimovian',sans-serif;color:#F4F4F4;line-height:1;width:fit-content;max-width:100%">
+  <section data-screen-label="Hero" id="home" style="position:relative;min-height:max(540px,100svh);max-height:none;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:#050505;padding:clamp(64px,7.5vh,88px) clamp(16px,4vw,64px) clamp(32px,4.5vh,56px)">
+    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+      <video autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" tabindex="-1" src="assets/hero.mp4" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;object-fit:cover;pointer-events:none"></video>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,0.15) 0%,rgba(5,5,5,0.05) 35%,rgba(5,5,5,0.45) 65%,rgba(5,5,5,0.88) 85%,#050505 100%)"></div>
+      <div id="jpi-hero-veil" style="position:absolute;inset:0;background:#050505;display:none;pointer-events:none"></div>
+    </div>
+    <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;color:#F4F4F4;line-height:1;width:fit-content;max-width:100%">
       <div data-hero="1" style="font-size:max(26px,min(6.1vw,11vh));letter-spacing:0.03em;padding-left:0">{{ t.heroL1 }}</div>
       <div data-hero="2" style="font-size:max(32px,{{ heroL2Size }});padding-left:0;white-space:nowrap;margin-top:clamp(6px,1.6vw,34px);letter-spacing:0.01em">{{ t.heroL2 }}</div>
       <div style="display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:baseline;gap:clamp(14px,2vw,32px);margin-top:clamp(4px,0.6vw,14px)">
@@ -103,14 +121,14 @@
         <div data-hero="3" style="flex:0 0 auto;margin-left:auto;font-family:'Asimovian',sans-serif;font-size:max(26px,min(6.1vw,11vh));line-height:1;letter-spacing:0.04em;color:#F4F4F4">2026</div>
       </div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,48px);margin-top:clamp(12px,1.6vw,32px)">
+    <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,48px);margin-top:clamp(12px,1.6vw,32px)">
       <p data-hero="5" style="margin:0;max-width:460px;min-width:0;font-size:clamp(14px,0.85vw,17px);line-height:1.6;color:#F4F4F4">{{ t.heroSupport }}</p>
       <a data-hero="6" href="#final" class="jpi-cta" style="margin-left:auto;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
         <span>{{ t.heroCta }}</span>
         <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
       </a>
     </div>
-    <div style="position:absolute;left:0;right:0;top:calc(100svh - clamp(74px,12vh,100px));display:flex;justify-content:center;pointer-events:none">
+    <div style="position:absolute;z-index:1;left:0;right:0;bottom:clamp(10px,2.5vh,26px);display:flex;justify-content:center;pointer-events:none">
       <a data-hero="7" href="#sobre" style="pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 16px;color:#F4F4F4" style-hover="color:#F6C444">
         <span style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.2em">{{ t.scrollHint }}</span>
         <span style="display:flex;font-size:22px;line-height:1;animation:jpiBounce 1.6s ease-in-out infinite">&#8595;</span>
@@ -368,6 +386,39 @@
 class Component extends DCLogic {
   state = { lang: 'pt', theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
   componentDidMount() {
+    (() => {
+      const box = document.getElementById('jpi-loader');
+      const pct = document.getElementById('jpi-loader-pct');
+      const bar = document.getElementById('jpi-loader-bar');
+      if (!box) return;
+      document.documentElement.style.overflow = 'hidden';
+      const vid = document.querySelector('#home video');
+      let p = 0, ready = false, done = false;
+      const markReady = () => { ready = true; };
+      if (vid) {
+        if (vid.readyState >= 3) ready = true;
+        vid.addEventListener('canplaythrough', markReady, { once: true });
+        vid.addEventListener('loadeddata', () => { if (vid.readyState >= 3) ready = true; });
+        vid.addEventListener('error', markReady, { once: true });
+      } else ready = true;
+      setTimeout(markReady, 9000);
+      const finish = () => {
+        if (done) return; done = true;
+        box.style.opacity = '0';
+        document.documentElement.style.overflow = '';
+        if (vid) { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); }
+        setTimeout(() => { box.style.display = 'none'; }, 700);
+      };
+      const tick = () => {
+        const cap = ready ? 100 : 92;
+        if (p < cap) p = Math.min(cap, p + (ready ? 1.15 : Math.max(0.22, (92 - p) * 0.02)));
+        if (pct) pct.textContent = Math.round(p) + '%';
+        if (bar) bar.style.width = p + '%';
+        if (p >= 100) { setTimeout(finish, 520); return; }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    })();
     this._mq = window.matchMedia('(max-width: 767px)');
     this._mqCb = () => this.forceUpdate();
     if (this._mq.addEventListener) this._mq.addEventListener('change', this._mqCb);
