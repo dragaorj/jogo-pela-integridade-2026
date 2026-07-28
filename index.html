@@ -113,7 +113,7 @@
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,0.42) 0%,rgba(5,5,5,0.34) 30%,rgba(5,5,5,0.62) 60%,rgba(5,5,5,0.92) 85%,#050505 100%)"></div>
       <div id="jpi-hero-veil" style="position:absolute;inset:0;background:#050505;display:none;pointer-events:none"></div>
     </div>
-    <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;color:#F4F4F4;line-height:1;width:fit-content;max-width:100%">
+    <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;color:#F4F4F4;line-height:1;width:100%">
       <div data-hero="1" style="font-size:max(26px,min(6.1vw,11vh));letter-spacing:0.03em;padding-left:0">{{ t.heroL1 }}</div>
       <div data-hero="2" style="font-size:max(32px,{{ heroL2Size }});padding-left:0;white-space:nowrap;margin-top:clamp(6px,1.6vw,34px);letter-spacing:0.01em">{{ t.heroL2 }}</div>
       <div style="display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:baseline;gap:clamp(14px,2vw,32px);margin-top:clamp(4px,0.6vw,14px)">
@@ -121,9 +121,9 @@
         <div data-hero="3" style="flex:0 0 auto;margin-left:auto;font-family:'Asimovian',sans-serif;font-size:max(26px,min(6.1vw,11vh));line-height:1;letter-spacing:0.04em;color:#F4F4F4">2026</div>
       </div>
     </div>
-    <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:clamp(20px,3vw,48px);margin-top:clamp(12px,1.6vw,32px)">
+    <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,48px);margin-top:clamp(10px,1.2vw,22px)">
       <p data-hero="5" style="margin:0;max-width:460px;min-width:0;font-size:clamp(14px,0.85vw,17px);line-height:1.6;color:#F4F4F4">{{ t.heroSupport }}</p>
-      <a data-hero="6" href="#final" class="jpi-cta" style="margin-left:auto;flex:0 0 auto;white-space:nowrap;margin-top:clamp(6px,1.4vh,20px);display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
+      <a data-hero="6" href="#final" class="jpi-cta" style="margin-left:auto;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
         <span>{{ t.heroCta }}</span>
         <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
       </a>
@@ -386,6 +386,49 @@
 class Component extends DCLogic {
   state = { lang: 'pt', theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
   componentDidMount() {
+    this._fitHero = () => {
+      const el = document.querySelector('[data-hero="2"]');
+      if (!el || !el.parentElement) return;
+      let sheet = document.getElementById('jpi-fit');
+      if (!sheet) { sheet = document.createElement('style'); sheet.id = 'jpi-fit'; document.head.appendChild(sheet); }
+      if (window.matchMedia('(max-width: 767px)').matches) { sheet.textContent = ''; return; }
+      const avail = el.parentElement.clientWidth;
+      if (!avail || !el.firstChild) return;
+      const setSize = (s) => { sheet.textContent = '[data-hero="2"]{font-size:' + s + 'px !important;letter-spacing:0 !important;}'; };
+      const textWidth = () => {
+        const r = document.createRange();
+        r.selectNodeContents(el);
+        const w = r.getBoundingClientRect().width;
+        return w;
+      };
+      let size = 200;
+      setSize(size);
+      for (let i = 0; i < 8; i++) {
+        const w = textWidth();
+        if (!w) return;
+        const next = size * (avail / w);
+        if (Math.abs(next - size) < 0.05) { size = next; break; }
+        size = next;
+        setSize(size);
+      }
+      size = Math.min(Math.max(32, size), window.innerHeight * 0.5);
+      setSize(size);
+    };
+    this._fitHero();
+    setTimeout(this._fitHero, 60);
+    setTimeout(this._fitHero, 600);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this._fitHero);
+    window.addEventListener('resize', this._fitHero);
+    const fitParent = document.querySelector('[data-hero="2"]') && document.querySelector('[data-hero="2"]').parentElement;
+    if (fitParent && window.ResizeObserver) {
+      this._fitRO = new ResizeObserver(() => { clearTimeout(this._fitT); this._fitT = setTimeout(this._fitHero, 30); });
+      this._fitRO.observe(fitParent);
+    }
+    const heroL2 = document.querySelector('[data-hero="2"]');
+    if (heroL2 && window.MutationObserver) {
+      this._heroObs = new MutationObserver(() => this._fitHero());
+      this._heroObs.observe(heroL2, { childList: true, characterData: true, subtree: true });
+    }
     (() => {
       const box = document.getElementById('jpi-loader');
       const pct = document.getElementById('jpi-loader-pct');
@@ -487,6 +530,10 @@ class Component extends DCLogic {
   }
   componentWillUnmount() {
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._fitHero) window.removeEventListener('resize', this._fitHero);
+    if (this._heroObs) this._heroObs.disconnect();
+    if (this._fitRO) this._fitRO.disconnect();
+    clearTimeout(this._fitT);
     clearInterval(this._rosterTimer); clearTimeout(this._holdT);
   }
   renderVals() {
