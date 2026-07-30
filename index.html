@@ -16,7 +16,7 @@
 <link rel="dns-prefetch" href="https://player.vimeo.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Asimovian&family=Google+Sans+Flex:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Google+Sans+Flex:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -57,6 +57,8 @@
     .jpi-burger { display: flex !important; }
     .jpi-arrows { display: flex !important; }
     [data-hero="6"] { margin-left: 0 !important; }
+    [data-hero="5"] { gap: 12px !important; max-width: 100% !important; }
+    [data-hero="5"] img { width: clamp(46px,13vw,64px) !important; }
     .jpi-rosterbtn { display: none !important; }
     .jpi-roster { display: flex !important; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-padding-left: 2px; }
     .jpi-roster::-webkit-scrollbar { display: none; }
@@ -72,7 +74,7 @@
 </helmet>
   <div id="jpi-loader" style="position:fixed;inset:0;z-index:9999;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(22px,3vh,34px);transition:opacity 0.65s ease">
     <img src="assets/logo.svg" alt="" style="width:clamp(76px,8vw,108px);height:auto;animation:jpiSpin 1.8s linear infinite" />
-    <div id="jpi-loader-pct" style="font-family:'Asimovian',sans-serif;font-size:clamp(26px,3vw,40px);letter-spacing:0.08em;color:#F4F4F4;line-height:1">0%</div>
+    <div id="jpi-loader-pct" style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(26px,3vw,40px);letter-spacing:0.08em;color:#F4F4F4;line-height:1">0%</div>
     <div style="width:clamp(160px,22vw,280px);height:3px;border-radius:999px;background:rgba(244,244,244,0.16);overflow:hidden">
       <div id="jpi-loader-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);transition:width 0.14s linear"></div>
     </div>
@@ -82,7 +84,7 @@
   <div aria-hidden="true" style="position:fixed;top:0;left:0;height:4px;z-index:120;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);width:{{ progW }};transition:width 0.1s linear"></div>
 
   <div style="position:fixed;top:4px;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px clamp(16px,4vw,64px)">
-    <nav class="jpi-navdesk" style="display:flex;align-items:center;gap:clamp(14px,2.5vw,36px);flex-wrap:wrap;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px clamp(18px,3vw,34px);background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:'Asimovian',sans-serif">
+    <nav class="jpi-navdesk" style="display:flex;align-items:center;gap:clamp(14px,2.5vw,36px);flex-wrap:wrap;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px clamp(18px,3vw,34px);background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:'Lato',sans-serif">
       <a href="#home" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.home }}">{{ t.navHome }}</a>
       <a href="#sobre" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.sobre }}">{{ t.navAbout }}</a>
       <a href="#agenda" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.agenda }}">{{ t.navAgenda }}</a>
@@ -91,14 +93,13 @@
     </nav>
     <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ burgerIcon }}</button>
     <div style="display:flex;gap:10px">
-      <button onClick="{{ toggleLang }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px 20px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4;font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="color:#F6C444">{{ langLabel }}</button>
-      <button onClick="{{ toggleTheme }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px 20px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4;font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="color:#F6C444">{{ themeLabel }}</button>
+      <button onClick="{{ toggleTheme }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px 20px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="color:#F6C444">{{ themeLabel }}</button>
     </div>
   </div>
 
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <div data-mm-overlay style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:95;background:rgba(5,5,5,0.55)" onClick="{{ closeMenu }}"></div>
-    <nav data-mm-panel style="position:fixed;top:82px;left:16px;right:16px;z-index:99;display:flex;flex-direction:column;border:1px solid rgba(147,147,147,0.5);border-radius:20px;overflow:hidden;background:rgba(17,17,17,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);font-family:'Asimovian',sans-serif">
+    <nav data-mm-panel style="position:fixed;top:82px;left:16px;right:16px;z-index:99;display:flex;flex-direction:column;border:1px solid rgba(147,147,147,0.5);border-radius:20px;overflow:hidden;background:rgba(17,17,17,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);font-family:'Lato',sans-serif">
       <a data-mm-link href="#home" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.home }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navHome }}</a>
       <a data-mm-link href="#sobre" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.sobre }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navAbout }}</a>
       <a data-mm-link href="#agenda" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.agenda }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navAgenda }}</a>
@@ -113,16 +114,19 @@
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,0.42) 0%,rgba(5,5,5,0.34) 30%,rgba(5,5,5,0.62) 60%,rgba(5,5,5,0.92) 85%,#050505 100%)"></div>
       <div id="jpi-hero-veil" style="position:absolute;inset:0;background:#050505;display:none;pointer-events:none"></div>
     </div>
-    <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;color:#F4F4F4;line-height:1;width:100%">
+    <div style="position:relative;z-index:1;font-family:'Lato',sans-serif;font-weight:700;color:#F4F4F4;line-height:1;width:100%">
       <div data-hero="1" style="font-size:max(26px,min(6.1vw,11vh));letter-spacing:0.03em;padding-left:0">{{ t.heroL1 }}</div>
       <div data-hero="2" style="font-size:max(32px,{{ heroL2Size }});padding-left:0;white-space:nowrap;margin-top:clamp(6px,1.6vw,34px);letter-spacing:0.01em">{{ t.heroL2 }}</div>
       <div style="display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:baseline;gap:clamp(14px,2vw,32px);margin-top:clamp(4px,0.6vw,14px)">
-        <div data-hero="4" style="flex:1 1 auto;min-width:0;font-family:'Asimovian',sans-serif;font-size:clamp(15px,1.25vw,26px);letter-spacing:0.05em;color:#F6C444">{{ t.heroSub }}</div>
-        <div data-hero="3" style="flex:0 0 auto;margin-left:auto;font-family:'Asimovian',sans-serif;font-size:max(26px,min(6.1vw,11vh));line-height:1;letter-spacing:0.04em;color:#F4F4F4">2026</div>
+        <div data-hero="4" style="flex:1 1 auto;min-width:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(15px,1.25vw,26px);letter-spacing:0.05em;color:#F6C444">{{ t.heroSub }}</div>
+        <div data-hero="3" style="flex:0 0 auto;margin-left:auto;font-family:'Lato',sans-serif;font-size:max(26px,min(6.1vw,11vh));line-height:1;letter-spacing:0.04em;color:#F4F4F4">2026</div>
       </div>
     </div>
     <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,48px);margin-top:clamp(10px,1.2vw,22px)">
-      <p data-hero="5" style="margin:0;max-width:460px;min-width:0;font-size:clamp(14px,0.85vw,17px);line-height:1.6;color:#F4F4F4">{{ t.heroSupport }}</p>
+      <div data-hero="5" style="display:flex;align-items:center;gap:clamp(14px,1.4vw,26px);max-width:560px;min-width:0">
+        <img src="assets/escudo.svg" alt="Escudo Jogo pela Integridade 2026" style="flex:0 0 auto;display:block;width:clamp(52px,5.2vw,88px);height:auto" />
+        <p style="margin:0;min-width:0;font-size:clamp(14px,0.85vw,17px);line-height:1.6;color:#F4F4F4">{{ t.heroSupport }}</p>
+      </div>
       <a data-hero="6" href="#final" class="jpi-cta" style="margin-left:auto;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
         <span>{{ t.heroCta }}</span>
         <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
@@ -130,7 +134,7 @@
     </div>
     <div style="position:absolute;z-index:1;left:0;right:0;bottom:clamp(26px,5vh,54px);display:flex;justify-content:center;pointer-events:none">
       <a data-hero="7" href="#sobre" style="pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 16px;color:#F4F4F4" style-hover="color:#F6C444">
-        <span style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.2em">{{ t.scrollHint }}</span>
+        <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.2em">{{ t.scrollHint }}</span>
         <span style="display:flex;font-size:22px;line-height:1;animation:jpiBounce 1.6s ease-in-out infinite">&#8595;</span>
       </a>
     </div>
@@ -139,34 +143,30 @@
   <section data-screen-label="Sobre" id="sobre" style="scroll-margin-top:90px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));background:{{ panelBg }}">
     <div style="position:relative;min-height:min(70vh,max(300px,38vw));background-image:linear-gradient(180deg,rgba(5,5,5,0.38),rgba(5,5,5,0.55)),url('assets/campo.webp');background-size:cover;background-position:center;display:flex;align-items:center">
       <div style="display:flex;flex-direction:column;align-items:stretch;gap:clamp(18px,2.5vw,32px);padding:clamp(24px,4vw,56px);width:100%">
-        <img data-anim="up" src="assets/logo.svg" alt="Jogo pela Integridade 2026" style="display:block;align-self:center;width:clamp(64px,6.5vw,96px);aspect-ratio:220/248;height:auto;object-fit:contain;filter:drop-shadow(0 2px 14px rgba(0,0,0,0.5))">
-        <h2 data-anim="up" style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(26px,4.2vw,54px);line-height:1.3;color:#F4F4F4;text-shadow:0 2px 18px rgba(0,0,0,0.6);text-wrap:balance;text-align:center">{{ t.aboutTitle }}</h2>
+        <img id="jpi-spin-logo" data-anim="up" src="assets/logo.svg" alt="Jogo pela Integridade 2026" style="display:block;align-self:center;will-change:transform;width:clamp(64px,6.5vw,96px);aspect-ratio:220/248;height:auto;object-fit:contain;filter:drop-shadow(0 2px 14px rgba(0,0,0,0.5))">
+        <h2 data-anim="up" style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(26px,4.2vw,54px);line-height:1.3;color:#F4F4F4;text-shadow:0 2px 18px rgba(0,0,0,0.6);text-wrap:balance;text-align:center">{{ t.aboutTitle }}</h2>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;justify-content:center;gap:22px;padding:clamp(40px,6vw,96px)">
-      <div data-anim="up" style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#D30F15">{{ t.aboutEyebrow }}</div>
+      <div data-anim="up" style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#D30F15">{{ t.aboutEyebrow }}</div>
       <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fg }}">{{ t.aboutP1 }}</p>
       <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.aboutP2 }}</p>
-      <div data-anim="up" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
-        <sc-for list="{{ t.causes }}" as="c" hint-placeholder-count="4">
-          <div style="border:1px solid #939393;border-radius:999px;padding:8px 18px;font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.08em;color:{{ fg }}">{{ c }}</div>
-        </sc-for>
-      </div>
+      <img data-anim="up" src="assets/times.svg" alt="Times do Jogo pela Integridade" style="display:block;width:100%;max-width:400px;height:auto;margin-top:8px" />
     </div>
   </section>
 
   <section data-screen-label="Agenda" id="agenda" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(32px,5vw,56px)">
-        <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.agendaEyebrow }}</div>
-        <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.agendaTitle }}</h2>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.agendaEyebrow }}</div>
+        <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.agendaTitle }}</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px">
         <sc-for list="{{ t.agendaCards }}" as="card" hint-placeholder-count="4">
           <div data-anim="up" class="jpi-tilt jpi-agcard" style="border:1px solid {{ line }};background:{{ cardBg }};padding:28px 26px;display:flex;flex-direction:column;gap:10px">
             <div class="jpi-agbg" style="background-image:linear-gradient(rgba(5,5,5,0.45),rgba(5,5,5,0.72)),url('{{ card.img }}')"></div>
             <div class="jpi-agtxt" style="position:relative;z-index:1;font-size:11px;letter-spacing:0.2em;color:#939393;transition:color 0.4s">{{ card.label }}</div>
-            <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;font-size:clamp(20px,2vw,26px);line-height:1.25;color:{{ accentOrFg }}">{{ card.v }}</div>
+            <div style="position:relative;z-index:1;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(20px,2vw,26px);line-height:1.25;color:{{ accentOrFg }}">{{ card.v }}</div>
             <sc-if value="{{ card.d }}" hint-placeholder-val="{{ false }}">
               <div class="jpi-agtxt" style="position:relative;z-index:1;font-size:13px;line-height:1.5;color:{{ fgSoft }};transition:color 0.4s">{{ card.d }}</div>
             </sc-if>
@@ -196,17 +196,17 @@
     </div>
   </section>
 
-  <section data-screen-label="Quem veste a camisa" id="camisa" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
+  <section data-screen-label="Quem veste a camisa" id="camisa" style="display:none;scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
     <div style="max-width:1440px;margin:0 auto">
       <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,64px)">
         <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;flex:1 1 340px">
-          <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.teamEyebrow }}</div>
-          <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.teamTitle }}</h2>
+          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.teamEyebrow }}</div>
+          <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.teamTitle }}</h2>
         </div>
         <p data-anim="up" style="margin:0;flex:1 1 380px;max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.teamP }}</p>
       </div>
       <div data-anim="up" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px">
-        <div style="font-family:'Asimovian',sans-serif;font-size:clamp(16px,1.8vw,20px);letter-spacing:0.06em;color:{{ fg }}">{{ t.teamGridTitle }}</div>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(16px,1.8vw,20px);letter-spacing:0.06em;color:{{ fg }}">{{ t.teamGridTitle }}</div>
         <div class="jpi-arrows" style="display:none;gap:10px">
           <button onClick="{{ rosterPrev }}" aria-label="Anterior" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><span style="display:flex;transform:scaleX(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></button>
           <button onClick="{{ rosterNext }}" aria-label="Próximo" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><span style="display:flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></button>
@@ -217,7 +217,7 @@
           <div class="jpi-card" onClick="{{ p.open }}" style="display:flex;flex-direction:column;border-left:3px solid #F6C444;border-radius:0 12px 12px 0;overflow:hidden;background:{{ cardBg }}">
             <div style="aspect-ratio:3/4;overflow:hidden"><img src="{{ p.src }}" alt="{{ p.name }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center top"></div>
             <div class="jpi-pinfo" style="padding:12px 14px;display:flex;flex-direction:column;gap:4px">
-              <div class="jpi-pname" style="font-family:'Asimovian',sans-serif;font-size:14px;letter-spacing:0.04em;color:{{ fg }}">{{ p.name }}</div>
+              <div class="jpi-pname" style="font-family:'Lato',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.04em;color:{{ fg }}">{{ p.name }}</div>
               <div class="jpi-prole" style="font-size:11px;letter-spacing:0.18em;color:#D30F15">SPFC</div>
             </div>
           </div>
@@ -233,15 +233,15 @@
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(32px,5vw,56px)">
         <div style="display:flex;flex-direction:column;gap:14px">
-          <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.schedEyebrow }}</div>
-          <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.schedTitle }}</h2>
+          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.schedEyebrow }}</div>
+          <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.schedTitle }}</h2>
         </div>
         <div style="font-size:12px;letter-spacing:0.2em;color:#939393">{{ t.schedTbc }}</div>
       </div>
       <div style="display:flex;flex-direction:column">
         <sc-for list="{{ schedule }}" as="item" hint-placeholder-count="8">
           <div data-anim="up" style="display:grid;grid-template-columns:72px 1fr;column-gap:clamp(16px,3vw,48px);align-items:baseline;padding:20px 0;border-top:1px solid {{ line }}">
-            <div style="font-family:'Asimovian',sans-serif;font-size:17px;color:#D30F15">{{ item.n }}</div>
+            <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:17px;color:#D30F15">{{ item.n }}</div>
             <div style="font-size:clamp(15px,1.6vw,18px);font-weight:500;color:{{ fg }}">{{ item.t }}</div>
           </div>
         </sc-for>
@@ -254,15 +254,14 @@
     <div style="max-width:1440px;margin:0 auto">
       <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,56px)">
         <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;flex:1 1 340px">
-          <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.supEyebrow }}</div>
-          <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.supTitle }}</h2>
+          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.supEyebrow }}</div>
+          <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.supTitle }}</h2>
         </div>
         <p data-anim="up" style="margin:0;flex:1 1 380px;max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.supP }}</p>
       </div>
       <div style="display:flex;flex-direction:column">
         <sc-for list="{{ tiers }}" as="tier" hint-placeholder-count="4">
           <div data-anim="up" style="display:flex;flex-direction:column;align-items:center;gap:22px;padding:clamp(28px,3vw,44px) 0;border-top:1px solid {{ line }}">
-            <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;text-align:center;color:#F6C444">{{ tier.label }}</div>
             <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:clamp(14px,1.6vw,24px)">
               <sc-for list="{{ tier.logos }}" as="l" hint-placeholder-count="3">
                 <div class="jpi-logocard" style="background:#FFFFFF;border-radius:10px;padding:16px 26px;display:flex;align-items:center;justify-content:center;min-width:150px;min-height:84px">
@@ -280,8 +279,8 @@
   <section data-screen-label="Retrospectiva" id="retrospectiva" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
-        <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.retroEyebrow }}</div>
-        <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.retroTitle }}</h2>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.retroEyebrow }}</div>
+        <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.retroTitle }}</h2>
       </div>
       <p data-anim="up" style="margin:0 0 clamp(32px,5vw,48px);max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.retroP }}</p>
       <div data-anim="up" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px">
@@ -301,15 +300,15 @@
   <section data-screen-label="FAQ" id="faq" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
     <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,96px)">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px">
-        <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">FAQ</div>
-        <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.faqTitle }}</h2>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">FAQ</div>
+        <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.faqTitle }}</h2>
       </div>
       <div style="display:flex;flex-direction:column">
         <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="5">
           <div data-anim="up" style="border-top:1px solid {{ line }};padding:20px 0">
             <div onClick="{{ item.toggle }}" onKeyDown="{{ item.key }}" tabIndex="0" role="button" aria-expanded="{{ item.open }}" style="display:flex;justify-content:space-between;align-items:center;gap:24px;cursor:pointer;min-height:44px" style-hover="opacity:0.75" style-focus="outline:none">
               <div style="font-size:clamp(15px,1.6vw,17px);font-weight:500;color:{{ fg }}">{{ item.q }}</div>
-              <div style="font-family:'Asimovian',sans-serif;font-size:22px;line-height:1;color:#D30F15">{{ item.sign }}</div>
+              <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:22px;line-height:1;color:#D30F15">{{ item.sign }}</div>
             </div>
             <div style="display:grid;grid-template-rows:{{ item.rows }};transition:grid-template-rows 0.45s cubic-bezier(0.4,0,0.2,1)">
               <div style="overflow:hidden">
@@ -325,7 +324,7 @@
 
   <section data-screen-label="CTA final" id="final" style="scroll-margin-top:90px;position:relative;background-image:linear-gradient(rgba(10,10,10,0.72),rgba(10,10,10,0.78)),url('assets/campo.webp');background-size:cover;background-position:center;padding:clamp(72px,12vw,150px) clamp(16px,4vw,64px)">
     <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
-      <h2 data-anim="up" style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(30px,5vw,58px);line-height:1.2;color:#F4F4F4">{{ t.finalTitle }}</h2>
+      <h2 data-anim="up" style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(30px,5vw,58px);line-height:1.2;color:#F4F4F4">{{ t.finalTitle }}</h2>
       <p data-anim="up" style="margin:0;max-width:540px;font-size:15px;line-height:1.7;color:#F4F4F4">{{ t.finalP }}</p>
       <a data-anim="up" href="#home" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:16px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
         <span>{{ t.finalCta }}</span>
@@ -337,7 +336,7 @@
   <sc-if value="{{ lightboxOn }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;cursor:zoom-out">
       {{ lightboxImg }}
-      <div style="font-family:'Asimovian',sans-serif;font-size:16px;letter-spacing:0.08em;color:#F4F4F4">{{ lightboxName }}</div>
+      <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.08em;color:#F4F4F4">{{ lightboxName }}</div>
     </div>
   </sc-if>
 
@@ -347,24 +346,23 @@
 
   <footer style="position:relative;overflow:hidden;background:{{ footBg }};color:{{ fg }};border-top:1px solid {{ line }};transition:background 0.4s,color 0.4s">
     <div style="padding:clamp(56px,7vw,96px) clamp(20px,6.3vw,130px) clamp(28px,3vw,44px)">
-      <div style="font-family:'Asimovian',sans-serif;line-height:1;color:{{ fg }}">
-        <div style="font-size:clamp(28px,4.6vw,88px);letter-spacing:0.02em">{{ t.brand }}</div>
-        <div style="display:flex;flex-wrap:wrap-reverse;justify-content:space-between;align-items:baseline;gap:16px;margin-top:clamp(10px,1.2vw,22px)">
-          <div style="font-family:'Asimovian',sans-serif;font-size:clamp(13px,1vw,19px);letter-spacing:0.12em;color:#F6C444">{{ t.heroSub }}</div>
-          <div style="font-size:clamp(28px,4.6vw,88px);letter-spacing:0.04em">2026</div>
+      <div style="font-family:'Lato',sans-serif;font-weight:700;line-height:1;color:{{ fg }}">
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:clamp(10px,1.2vw,24px);font-size:clamp(28px,4.6vw,88px);letter-spacing:0.02em"><span>{{ t.brand }}</span><span style="letter-spacing:0.04em">2026</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(10px,1.2vw,22px)">
+          <div style="font-family:'Lato',sans-serif;font-size:clamp(13px,1vw,19px);letter-spacing:0.12em;color:#F6C444">{{ t.heroSub }}</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px;margin-top:clamp(40px,5vw,72px);padding-top:clamp(28px,3vw,44px);border-top:1px solid {{ line }}">
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerOrgLabel }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerOrgLabel }}</div>
           <div style="font-size:13px;line-height:1.7;color:{{ fgSoft }}">{{ t.footerOrg }}</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerContactLabel }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerContactLabel }}</div>
           <div style="font-size:13px;line-height:1.7;color:{{ fgSoft }}">{{ t.footerContact }}</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerNavLabel }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerNavLabel }}</div>
           <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
             <a href="#sobre" style="font-size:13px;color:{{ fg }}">{{ t.navAbout }}</a>
             <a href="#agenda" style="font-size:13px;color:{{ fg }}">{{ t.navAgenda }}</a>
@@ -384,7 +382,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { lang: 'pt', theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
+  state = { theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
   componentDidMount() {
     this._fitHero = () => {
       const el = document.querySelector('[data-hero="2"]');
@@ -419,6 +417,15 @@ class Component extends DCLogic {
     setTimeout(this._fitHero, 600);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(this._fitHero);
     window.addEventListener('resize', this._fitHero);
+    this._spinLogo = () => {
+      const el = document.getElementById('jpi-spin-logo');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const prog = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+      el.style.transform = 'rotate(' + (prog * 540) + 'deg)';
+    };
+    window.addEventListener('scroll', this._spinLogo, { passive: true });
+    this._spinLogo();
     const fitParent = document.querySelector('[data-hero="2"]') && document.querySelector('[data-hero="2"]').parentElement;
     if (fitParent && window.ResizeObserver) {
       this._fitRO = new ResizeObserver(() => { clearTimeout(this._fitT); this._fitT = setTimeout(this._fitHero, 30); });
@@ -481,9 +488,8 @@ class Component extends DCLogic {
       if (el) { ['touchstart','pointerdown'].forEach(e => el.addEventListener(e, this._holdOn, { passive: true })); ['touchend','pointerup'].forEach(e => el.addEventListener(e, this._holdOff, { passive: true })); }
     }, 500);
     try {
-      const lang = localStorage.getItem('jpi-lang'); const theme = localStorage.getItem('jpi-theme');
+      const theme = localStorage.getItem('jpi-theme');
       const s = {};
-      if (lang === 'pt' || lang === 'en') s.lang = lang;
       if (theme === 'dark' || theme === 'light') s.theme = theme;
       if (Object.keys(s).length) this.setState(s);
     } catch (e) {}
@@ -533,11 +539,13 @@ class Component extends DCLogic {
     if (this._fitHero) window.removeEventListener('resize', this._fitHero);
     if (this._heroObs) this._heroObs.disconnect();
     if (this._fitRO) this._fitRO.disconnect();
+    if (this._spinLogo) window.removeEventListener('scroll', this._spinLogo);
     clearTimeout(this._fitT);
     clearInterval(this._rosterTimer); clearTimeout(this._holdT);
   }
   renderVals() {
-    const { lang, theme } = this.state;
+    const lang = 'pt';
+    const theme = this.state.theme;
     const dark = theme === 'dark';
     const pt = {
       navHome: 'HOME', navAbout: 'SOBRE', navAgenda: 'AGENDA', navSupporters: 'APOIADORES',
@@ -564,10 +572,10 @@ class Component extends DCLogic {
       teamGridTitle: 'CONFIRA NOSSOS JOGADORES CONVOCADOS', playerPhoto: 'foto do jogador', playerWord: 'JOGADOR',
       schedEyebrow: 'PROGRAMAÇÃO DO DIA', schedTitle: 'COMO VAI SER O DIA', schedTbc: 'A CONFIRMAR (TBC)',
       schedItems: ['Credenciamento & Welcome coffee', 'Abertura', 'Aquecimento / apresentação das equipes', 'Partida 1', 'Partida 2', 'Partida 3', 'Encerramento', 'Coquetel de confraternização'],
-      supEyebrow: 'APOIADORES', supTitle: 'QUEM TORCE COM A GENTE',
+      supEyebrow: 'REALIZAÇÃO', supTitle: 'QUEM TORCE COM A GENTE',
       supP: 'Marcas e instituições que acreditam que o esporte é uma plataforma poderosa para transformação social.',
       logoPh: 'logo do apoiador',
-      retroEyebrow: 'RETROSPECTIVA', retroTitle: 'EDIÇÕES ANTERIORES — 03 ANOS DE JOGO',
+      retroEyebrow: 'RETROSPECTIVA', retroTitle: 'EDIÇÕES ANTERIORES – 2023, 2024 E 2025',
       retroP: 'Reviva os melhores momentos das edições passadas do Jogo pela Integridade.',
       retroPhotos: ['foto — edição 2023', 'foto — edição 2024', 'foto — edição 2025'],
       faqTitle: 'PERGUNTAS FREQUENTES',
@@ -580,60 +588,13 @@ class Component extends DCLogic {
       ],
       finalTitle: 'FAÇA PARTE DESSA PARTIDA PELA MUDANÇA',
       finalP: 'Convide sua família e amigos para uma tarde inesquecível, onde a integridade é a estrela principal.',
-      finalCta: 'Quero meu convite',
+      finalCta: 'Ingressos Aqui',
       footerOrg: 'Diretoria de ESG, Riscos e Compliance — São Paulo FC',
       footerOrgLabel: 'ORGANIZAÇÃO',
       footerContactLabel: 'CONTATO', footerContact: 'Produção do evento — Praça Roberto Gomes Pedrosa, 1 — MorumBIS, São Paulo, SP',
       footerNavLabel: 'NAVEGAÇÃO', rights: '© 2026 Jogo pela Integridade — Todos os direitos reservados', devBy: 'Website desenvolvido por'
     };
-    const en = {
-      navHome: 'HOME', navAbout: 'ABOUT', navAgenda: 'SCHEDULE', navSupporters: 'SUPPORTERS',
-      heroL1: 'PLAYING FOR', heroL2: 'INTEGRITY', brand: 'PLAYING FOR INTEGRITY',
-      heroSub: 'ONE MATCH. ONE TEAM: INTEGRITY.',
-      heroSupport: 'Market professionals, former players and athletes gathered on the pitch to celebrate the values that move the game — on and off the field.',
-      heroCta: 'Get your ticket',
-      scrollHint: 'SCROLL DOWN',
-      videoSoundLabel: 'Turn sound on',
-      aboutEyebrow: 'ABOUT THE GAME', aboutTitle: 'AN OPEN FIELD FOR CHANGE',
-      aboutP1: 'The Integrity Game is a symbolic match that brings participants together in mixed teams, formed around causes that are fundamental to sport and society — such as Mental Health, Fighting Racism, Sustainability and Gender Equality.',
-      aboutP2: 'More than a match, it is an invitation to reflect: using the power of football to bring to the field issues that demand attention, dialogue and collective action.',
-      causes: ['MENTAL HEALTH', 'FIGHTING RACISM', 'SUSTAINABILITY', 'GENDER EQUALITY'],
-      agendaEyebrow: 'DATE, TIME & VENUE', agendaTitle: 'SAVE THE DATE',
-      gcalLabel: 'Add to Google Calendar',
-      agendaCards: [
-        { label: 'DATE', v: '09/26/2026', img: 'assets/68d7010a4a940cb2f7094226b2848874.jpg' },
-        { label: 'TIME', v: '11AM TO 6PM', img: 'assets/8ecf9273c89d01af83a1e73842580297.jpg' },
-        { label: 'VENUE', v: 'MORUMBIS STADIUM', d: 'Gate 17 access, Giovanni Gronchi Avenue', img: 'assets/53d711a44fb56c68f14a75460e56379b.jpg' },
-        { label: 'ADMISSION', v: 'TICKETED EVENT', d: 'Entry with ticket only', img: 'assets/f6bd6db8859930f360fa497d975cda7b.jpg' }
-      ],
-      teamEyebrow: 'WHO WEARS THE SHIRT', teamTitle: 'UNITED FOR INTEGRITY',
-      teamP: 'Friends, partners, compliance professionals and former athletes come together to celebrate sportsmanship and inspire real change on and off the pitch. It is football — but also dialogue, reflection and a celebration of everything sport can teach.',
-      teamGridTitle: 'MEET OUR CALLED-UP PLAYERS', playerPhoto: 'player photo', playerWord: 'PLAYER',
-      schedEyebrow: 'DAY PROGRAMME', schedTitle: 'HOW THE DAY UNFOLDS', schedTbc: 'TO BE CONFIRMED (TBC)',
-      schedItems: ['Check-in & Welcome coffee', 'Opening', 'Warm-up / team presentation', 'Match 1', 'Match 2', 'Match 3', 'Closing', 'Networking cocktail'],
-      supEyebrow: 'SUPPORTERS', supTitle: 'WHO CHEERS WITH US',
-      supP: 'Brands and institutions that believe sport is a powerful platform for social transformation.',
-      logoPh: 'supporter logo',
-      retroEyebrow: 'RETROSPECTIVE', retroTitle: 'PAST EDITIONS — 3 YEARS OF THE GAME',
-      retroP: 'Relive the best moments from previous editions of the Integrity Game.',
-      retroPhotos: ['photo — 2023 edition', 'photo — 2024 edition', 'photo — 2025 edition'],
-      faqTitle: 'FREQUENTLY ASKED QUESTIONS',
-      faqItems: [
-        { q: 'What is the Integrity Game?', a: 'A festive match bringing together legendary former players, artists, influencers, CEOs and authorities to celebrate the values of sport and raise visibility for causes that matter to society.' },
-        { q: 'When and where does it happen?', a: '09/26/2026, at MorumBIS Stadium. Giovanni Gronchi Avenue, Gate 17.' },
-        { q: 'Who can attend?', a: 'The event is invitation-only.' },
-        { q: 'How do the teams work?', a: 'Participants are divided into mixed teams, each representing a cause relevant to sport and society.' },
-        { q: 'Can I bring guests?', a: 'To be defined — if applicable, invitation conditions will be announced.' }
-      ],
-      finalTitle: 'BE PART OF THIS MATCH FOR CHANGE',
-      finalP: 'Invite your family and friends to an unforgettable afternoon where integrity is the star of the show.',
-      finalCta: 'Request my invite',
-      footerOrg: 'ESG, Risk & Compliance Board — São Paulo FC',
-      footerOrgLabel: 'ORGANIZATION',
-      footerContactLabel: 'CONTACT', footerContact: 'Event production — Praça Roberto Gomes Pedrosa, 1 — MorumBIS, São Paulo, SP',
-      footerNavLabel: 'NAVIGATION', rights: '© 2026 Integrity Game — All rights reserved', devBy: 'Website developed by'
-    };
-    const t = lang === 'pt' ? pt : en;
+    const t = pt;
     const navC = {};
     ['home', 'sobre', 'agenda', 'apoiadores', 'faq'].forEach(id => {
       navC[id] = this.state.active === id ? '#F6C444' : '#F4F4F4';
@@ -672,14 +633,7 @@ class Component extends DCLogic {
       spfc: { name: 'São Paulo FC', src: A + '68d4231e0081354c1029638e_03.png' }
     };
     const tiers = [
-      { label: lang === 'pt' ? 'DIAMANTE NEGRO PLATINUM' : 'PLATINUM BLACK DIAMOND', h: '58px', logos: [L.sap, L.superbet] },
-      { label: lang === 'pt' ? 'DIAMANTE NEGRO' : 'BLACK DIAMOND', h: '58px', logos: [L.kpmg] },
-      { label: lang === 'pt' ? 'DIAMANTE' : 'DIAMOND', h: '52px', logos: [L.nexa, L.urbano, L.lec, L.efcan] },
-      { label: lang === 'pt' ? 'ESTRELA' : 'STAR', h: '52px', logos: [L.quiteria] },
-      { label: lang === 'pt' ? 'APOIO INSTITUCIONAL' : 'INSTITUTIONAL SUPPORT', h: '48px', logos: [L.sde, L.pacto, L.spfcu, L.unifut, L.unidom, L.negra] },
-      { label: 'INTEGRITY PARTNER', h: '56px', logos: [L.siga] },
-      { label: lang === 'pt' ? 'PARCEIRO OFICIAL' : 'OFFICIAL PARTNER', h: '44px', logos: [L.inova, L.house, L.slim, L.mb] },
-      { label: lang === 'pt' ? 'REALIZAÇÃO' : 'ORGANIZED BY', h: '56px', logos: [L.pit, L.spfc] }
+      { label: '', h: '56px', logos: [L.pit, L.spfc] }
     ];
     // ROSTER: para adicionar jogadores, basta acrescentar { name, src } nesta lista (5 por fileira)
     const J = 'assets/jogadores/';
@@ -739,9 +693,7 @@ class Component extends DCLogic {
       openRetro4: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[3]),
       heroL2Size: lang === 'pt' ? 'min(14.7vw,26.5vh)' : 'min(17.6vw,26.5vh)',
       footBg: dark ? '#0A0A0A' : '#EAEAEA',
-      langLabel: lang === 'pt' ? 'EN' : 'PT',
       themeLabel: dark ? (lang === 'pt' ? 'CLARO' : 'LIGHT') : (lang === 'pt' ? 'ESCURO' : 'DARK'),
-      toggleLang: () => { const v = lang === 'pt' ? 'en' : 'pt'; try { localStorage.setItem('jpi-lang', v); } catch (e) {} this.setState({ lang: v }); },
       toggleTheme: () => { const v = dark ? 'light' : 'dark'; try { localStorage.setItem('jpi-theme', v); } catch (e) {} this.setState({ theme: v }); },
       bg: dark ? '#111111' : '#F4F4F4',
       altBg: dark ? '#161616' : '#FFFFFF',
