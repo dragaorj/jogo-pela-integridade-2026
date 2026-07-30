@@ -95,7 +95,7 @@
     </nav>
     <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ burgerIcon }}</button>
     <div style="display:flex;gap:10px">
-      <button onClick="{{ toggleTheme }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px 20px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="color:#F6C444">{{ themeLabel }}</button>
+      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ themeIcon }}</button>
     </div>
   </div>
 
@@ -349,7 +349,7 @@
   <footer style="position:relative;overflow:hidden;background:{{ footBg }};color:{{ fg }};border-top:1px solid {{ line }};transition:background 0.4s,color 0.4s">
     <div style="padding:clamp(56px,7vw,96px) clamp(20px,6.3vw,130px) clamp(28px,3vw,44px)">
       <div style="font-family:'Lato',sans-serif;font-weight:700;line-height:1;color:{{ fg }}">
-        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:clamp(10px,1.2vw,24px);font-size:clamp(28px,4.6vw,88px);letter-spacing:0.02em"><span>{{ t.brand }}</span><span style="letter-spacing:0.04em">2026</span></div>
+        <div style="display:flex;flex-wrap:nowrap;align-items:baseline;gap:clamp(8px,1.2vw,24px);font-size:min(clamp(20px,4.6vw,88px),5.1vw);white-space:nowrap;letter-spacing:0.02em"><span>{{ t.brand }}</span><span style="letter-spacing:0.04em">2026</span></div>
         <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(10px,1.2vw,22px)">
           <div style="font-family:'Lato',sans-serif;font-size:clamp(13px,1vw,19px);letter-spacing:0.12em;color:#F6C444">{{ t.heroSub }}</div>
         </div>
@@ -696,7 +696,13 @@ class Component extends DCLogic {
       openRetro4: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[3]),
       heroL2Size: lang === 'pt' ? 'min(14.7vw,26.5vh)' : 'min(17.6vw,26.5vh)',
       footBg: dark ? '#0A0A0A' : '#EAEAEA',
-      themeLabel: dark ? (lang === 'pt' ? 'CLARO' : 'LIGHT') : (lang === 'pt' ? 'ESCURO' : 'DARK'),
+      themeLabel: dark ? 'Modo claro' : 'Modo escuro',
+      themeIcon: dark
+        ? React.createElement('svg', { width: 19, height: 19, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' },
+            React.createElement('circle', { cx: 12, cy: 12, r: 4.2 }),
+            React.createElement('path', { d: 'M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4' }))
+        : React.createElement('svg', { width: 19, height: 19, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' },
+            React.createElement('path', { d: 'M20.5 14.6A8.6 8.6 0 1 1 9.4 3.5a6.8 6.8 0 0 0 11.1 11.1z' })),
       toggleTheme: () => { const v = dark ? 'light' : 'dark'; try { localStorage.setItem('jpi-theme', v); } catch (e) {} this.setState({ theme: v }); },
       bg: dark ? '#111111' : '#F4F4F4',
       altBg: dark ? '#161616' : '#FFFFFF',
