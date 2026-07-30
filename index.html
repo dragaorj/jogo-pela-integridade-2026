@@ -83,7 +83,7 @@
   </div>
 <div style="width:100%;min-height:100vh;background:{{ bg }};color:{{ fg }};font-family:'Google Sans Flex','Google Sans','DM Sans',Arial,sans-serif;transition:background 0.4s,color 0.4s">
 
-  <div aria-hidden="true" style="position:fixed;top:0;left:0;height:4px;z-index:120;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);width:{{ progW }};transition:width 0.1s linear"></div>
+  <div aria-hidden="true" id="jpi-prog" style="position:fixed;top:0;left:0;height:4px;z-index:120;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);width:0%;transform-origin:left center;will-change:width"></div>
 
   <div style="position:fixed;top:4px;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px clamp(16px,4vw,64px)">
     <nav class="jpi-navdesk" style="display:flex;align-items:center;gap:clamp(14px,2.5vw,36px);flex-wrap:wrap;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px clamp(18px,3vw,34px);background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:'Lato',sans-serif">
@@ -506,8 +506,9 @@ class Component extends DCLogic {
       const active = spyIds.includes(current) ? current : (spySections[current] || 'home');
       const showTop = window.scrollY > window.innerHeight * 0.8;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      const prog = max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 1000) / 10) : 0;
-      if (active !== this.state.active || showTop !== this.state.showTop || prog !== this.state.prog) this.setState({ active, showTop, prog });
+      const bar = document.getElementById('jpi-prog');
+      if (bar) bar.style.width = (max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0) + '%';
+      if (active !== this.state.active || showTop !== this.state.showTop) this.setState({ active, showTop });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -550,7 +551,7 @@ class Component extends DCLogic {
     const theme = this.state.theme;
     const dark = theme === 'dark';
     const pt = {
-      navHome: 'HOME', navAbout: 'SOBRE', navAgenda: 'AGENDA', navSupporters: 'APOIADORES',
+      navHome: 'HOME', navAbout: 'SOBRE', navAgenda: 'AGENDA', navSupporters: 'REALIZAÇÃO',
       heroL1: 'JOGO PELA', heroL2: 'INTEGRIDADE', brand: 'JOGO PELA INTEGRIDADE',
       heroSub: 'UMA PARTIDA. UM SÓ TIME: O DA INTEGRIDADE.',
       heroSupport: 'Diversos profissionais do mercado, ex-jogadores e demais esportistas reunidos em campo para celebrar os valores que movem o jogo — dentro e fora dele.',
