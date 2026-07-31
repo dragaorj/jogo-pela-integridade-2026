@@ -30,6 +30,17 @@
   @keyframes jpiGlow { 0%, 100% { box-shadow: 0 0 10px rgba(211,15,21,0.25); } 50% { box-shadow: 0 0 18px rgba(211,15,21,0.45); } }
   @keyframes jpiVeil { 0%, 40% { opacity: 1; } 100% { opacity: 0; } }
   @keyframes jpiSpin { to { transform: rotate(360deg); } }
+  @keyframes jpiShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+  .jpi-tkt { position: relative; }
+  .jpi-tkt::after { content: ''; position: absolute; inset: 0; padding: 1px; opacity: 0; transition: opacity 0.45s ease; pointer-events: none; background-size: 200% 100%; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
+  .jpi-tkt:hover::after { opacity: 1; animation: jpiShimmer 2.6s linear infinite; }
+  .jpi-gold::after { background-image: linear-gradient(90deg, rgba(246,196,68,0) 0%, #F6C444 20%, #FFF6D2 35%, #B8860B 50%, #F6C444 70%, rgba(246,196,68,0) 100%); }
+  .jpi-silver::after { background-image: linear-gradient(90deg, rgba(230,230,230,0) 0%, #C9C9C9 20%, #FFFFFF 35%, #8A8A8A 50%, #D8D8D8 70%, rgba(230,230,230,0) 100%); }
+  .jpi-bronze::after { background-image: linear-gradient(90deg, rgba(205,127,50,0) 0%, #CD7F32 20%, #F0B27A 35%, #8C5A21 50%, #CD7F32 70%, rgba(205,127,50,0) 100%); }
+  .jpi-gold:hover { box-shadow: 0 0 26px rgba(246,196,68,0.14); }
+  .jpi-silver:hover { box-shadow: 0 0 26px rgba(220,220,220,0.12); }
+  .jpi-bronze:hover { box-shadow: 0 0 26px rgba(205,127,50,0.12); }
+
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
   a { color: inherit; text-decoration: none; }
   a:hover { color: #F6C444; }
@@ -90,6 +101,7 @@
       <a href="#home" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.home }}">{{ t.navHome }}</a>
       <a href="#sobre" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.sobre }}">{{ t.navAbout }}</a>
       <a href="#agenda" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.agenda }}">{{ t.navAgenda }}</a>
+      <a href="#ingressos" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.ingressos }}">{{ t.navTickets }}</a>
       <a href="#apoiadores" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.apoiadores }}">{{ t.navSupporters }}</a>
       <a href="#faq" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.faq }}">FAQ</a>
     </nav>
@@ -105,6 +117,7 @@
       <a data-mm-link href="#home" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.home }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navHome }}</a>
       <a data-mm-link href="#sobre" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.sobre }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navAbout }}</a>
       <a data-mm-link href="#agenda" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.agenda }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navAgenda }}</a>
+      <a data-mm-link href="#ingressos" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.ingressos }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navTickets }}</a>
       <a data-mm-link href="#apoiadores" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.apoiadores }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navSupporters }}</a>
       <a data-mm-link href="#faq" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.faq }}">FAQ</a>
     </nav>
@@ -129,7 +142,7 @@
         <img src="assets/escudo.svg" alt="Escudo Jogo pela Integridade 2026" style="flex:0 0 auto;display:block;width:clamp(52px,5.2vw,88px);height:auto" />
         <p style="margin:0;min-width:0;font-size:clamp(14px,0.85vw,17px);line-height:1.6;color:#F4F4F4">{{ t.heroSupport }}</p>
       </div>
-      <a data-hero="6" href="#final" class="jpi-cta" style="margin-left:auto;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
+      <a data-hero="6" href="https://www.sympla.com.br/evento/jogo-pela-integridade-2026/3523583?share_id=copiarlink" target="_blank" rel="noopener noreferrer" class="jpi-cta" style="margin-left:auto;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
         <span>{{ t.heroCta }}</span>
         <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
       </a>
@@ -179,6 +192,62 @@
         <a href="{{ gcalUrl }}" target="_blank" rel="noopener" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:15px;font-weight:500">
           <span>{{ t.gcalLabel }}</span>
           <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18M12 15v4M10 17h4"></path></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Ingressos" id="ingressos" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
+    <div style="max-width:1440px;margin:0 auto">
+      <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(32px,5vw,56px)">
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.ticketsEyebrow }}</div>
+        <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.ticketsTitle }}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px">
+        <sc-for list="{{ passes }}" as="tk" hint-placeholder-count="2">
+          <div data-anim="up" class="jpi-tkt {{ tk.metal }}" style="border:1px solid {{ line }};background:{{ cardBg }};padding:28px 26px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(18px,1.8vw,22px);line-height:1.25;color:{{ accentOrFg }}">{{ tk.type }}</div>
+              <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(22px,2.4vw,30px);line-height:1;color:{{ fg }}">{{ tk.price }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ tk.includes }}" as="it" hint-placeholder-count="3">
+                <div style="display:flex;gap:10px;font-size:13px;line-height:1.55;color:{{ fgSoft }}"><span style="flex:0 0 auto;color:#D30F15">::</span><span>{{ it }}</span></div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ tk.warn }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid {{ line }};padding-top:12px;font-size:12px;line-height:1.5;color:#F6C444">{{ tk.warn }}</div>
+            </sc-if>
+            <sc-if value="{{ tk.note }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px;line-height:1.5;color:{{ fgSoft }}">{{ tk.note }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:18px">
+        <sc-for list="{{ boxes }}" as="tk" hint-placeholder-count="3">
+          <div data-anim="up" class="jpi-tkt {{ tk.metal }}" style="border:1px solid {{ line }};background:{{ cardBg }};padding:26px 24px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(17px,1.6vw,20px);line-height:1.25;color:{{ accentOrFg }}">{{ tk.type }}</div>
+              <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(20px,2.2vw,26px);line-height:1;color:{{ fg }}">{{ tk.price }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ tk.includes }}" as="it" hint-placeholder-count="1">
+                <div style="display:flex;gap:10px;font-size:13px;line-height:1.55;color:{{ fgSoft }}"><span style="flex:0 0 auto;color:#D30F15">::</span><span>{{ it }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div data-anim="up" style="display:flex;flex-direction:column;gap:8px;margin-top:clamp(24px,3vw,36px)">
+        <sc-for list="{{ t.ticketNotes }}" as="n" hint-placeholder-count="2">
+          <div style="font-size:13px;line-height:1.6;color:{{ fgSoft }}">{{ n }}</div>
+        </sc-for>
+      </div>
+      <div data-anim="up" style="display:flex;justify-content:center;margin-top:36px">
+        <a href="https://www.sympla.com.br/evento/jogo-pela-integridade-2026/3523583?share_id=copiarlink" target="_blank" rel="noopener noreferrer" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:15px;font-weight:500">
+          <span>{{ t.finalCta }}</span>
+          <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
         </a>
       </div>
     </div>
@@ -328,7 +397,7 @@
     <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
       <h2 data-anim="up" style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(30px,5vw,58px);line-height:1.2;color:#F4F4F4">{{ t.finalTitle }}</h2>
       <p data-anim="up" style="margin:0;max-width:540px;font-size:15px;line-height:1.7;color:#F4F4F4">{{ t.finalP }}</p>
-      <a data-anim="up" href="#home" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:16px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
+      <a data-anim="up" href="https://www.sympla.com.br/evento/jogo-pela-integridade-2026/3523583?share_id=copiarlink" target="_blank" rel="noopener noreferrer" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:16px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
         <span>{{ t.finalCta }}</span>
         <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
       </a>
@@ -368,6 +437,7 @@
           <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
             <a href="#sobre" style="font-size:13px;color:{{ fg }}">{{ t.navAbout }}</a>
             <a href="#agenda" style="font-size:13px;color:{{ fg }}">{{ t.navAgenda }}</a>
+            <a href="#ingressos" style="font-size:13px;color:{{ fg }}">{{ t.navTickets }}</a>
             <a href="#apoiadores" style="font-size:13px;color:{{ fg }}">{{ t.navSupporters }}</a>
             <a href="#faq" style="font-size:13px;color:{{ fg }}">FAQ</a>
           </div>
@@ -495,15 +565,18 @@ class Component extends DCLogic {
       if (theme === 'dark' || theme === 'light') s.theme = theme;
       if (Object.keys(s).length) this.setState(s);
     } catch (e) {}
-    const spyIds = ['home', 'sobre', 'agenda', 'apoiadores', 'faq'];
-    const spySections = { camisa: 'agenda', programacao: 'agenda', retrospectiva: 'apoiadores', final: 'faq' };
+    const spyIds = ['home', 'sobre', 'agenda', 'ingressos', 'apoiadores', 'faq'];
+    const spySections = { camisa: 'agenda', programacao: 'agenda', video: 'ingressos', retrospectiva: 'apoiadores', final: 'faq' };
     this._onScroll = () => {
       const mid = window.innerHeight * 0.4;
-      let current = 'home';
+      let current = 'home', best = -Infinity;
       document.querySelectorAll('section[id]').forEach(sec => {
-        if (sec.getBoundingClientRect().top <= mid) current = sec.id;
+        const r = sec.getBoundingClientRect();
+        if (r.height === 0 || sec.offsetParent === null) return;
+        if (r.top <= mid && r.top > best) { best = r.top; current = sec.id; }
       });
-      const active = spyIds.includes(current) ? current : (spySections[current] || 'home');
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) current = 'faq';
+      const active = spyIds.indexOf(current) >= 0 ? current : (spySections[current] || 'home');
       const showTop = window.scrollY > window.innerHeight * 0.8;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const bar = document.getElementById('jpi-prog');
@@ -551,7 +624,21 @@ class Component extends DCLogic {
     const theme = this.state.theme;
     const dark = theme === 'dark';
     const pt = {
-      navHome: 'HOME', navAbout: 'SOBRE', navAgenda: 'AGENDA', navSupporters: 'REALIZAÇÃO',
+      navHome: 'HOME', navAbout: 'SOBRE', navAgenda: 'AGENDA', navTickets: 'INGRESSOS', navSupporters: 'REALIZAÇÃO',
+      ticketsEyebrow: 'INGRESSOS',
+      ticketsTitle: 'CATEGORIAS DE INGRESSO',
+      ticketItems: [
+        { type: 'Passaporte Individual Completo', price: 'R$ 600,00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo (apenas o jogador)', 'Kit de uniforme completo: 01 camisa treino; 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: 'Atenção: a chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: 'Vendas de passaporte individual até 18 de setembro' },
+        { type: 'Passaporte Família Completo', price: 'R$ 960,00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo do jogador + 02 convidados', 'Kit de uniforme completo: 01 camisa treino; 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '', note: '' },
+        { type: 'Camarote Individual', price: 'R$ 300,00', includes: ['01 Acesso livre ao camarote durante o jogo'], warn: '', note: '' },
+        { type: 'Camarote Família', price: 'R$ 720,00', includes: ['03 Acessos livres ao camarote durante o jogo'], warn: '', note: '' },
+        { type: 'Camarote Infantil', price: 'R$ 150,00', includes: ['01 Acesso livre ao camarote durante o jogo para criança de 03 a 06 anos'], warn: '', note: '' }
+      ],
+      ticketNotes: [
+        '*Crianças abaixo de 02 anos não pagam.',
+        'Os jogos acontecerão ao longo de todo o dia. Os horários de cada partida serão definidos e confirmados mais próximo da data do evento. Não será possível que os jogadores escolham o horário em que irão jogar.'
+      ],
+
       heroL1: 'JOGO PELA', heroL2: 'INTEGRIDADE', brand: 'JOGO PELA INTEGRIDADE',
       heroSub: 'UMA PARTIDA. UM SÓ TIME: O DA INTEGRIDADE.',
       heroSupport: 'Diversos profissionais do mercado, ex-jogadores e demais esportistas reunidos em campo para celebrar os valores que movem o jogo — dentro e fora dele.',
@@ -598,8 +685,11 @@ class Component extends DCLogic {
       footerNavLabel: 'NAVEGAÇÃO', rights: '© 2026 Jogo pela Integridade — Todos os direitos reservados', devBy: 'Website desenvolvido por'
     };
     const t = pt;
+    const metals = ['jpi-gold', 'jpi-silver', 'jpi-bronze', 'jpi-bronze', 'jpi-bronze'];
+    const num = (p) => parseFloat(p.replace(/[^\d,]/g, '').replace(',', '.'));
+    const tickets = t.ticketItems.slice().sort((a, b) => num(b.price) - num(a.price)).map((x, i) => Object.assign({}, x, { metal: metals[i] || 'jpi-bronze' }));
     const navC = {};
-    ['home', 'sobre', 'agenda', 'apoiadores', 'faq'].forEach(id => {
+    ['home', 'sobre', 'agenda', 'ingressos', 'apoiadores', 'faq'].forEach(id => {
       navC[id] = this.state.active === id ? '#F6C444' : '#F4F4F4';
     });
     const faqs = t.faqItems.map((f, i) => ({
@@ -663,7 +753,8 @@ class Component extends DCLogic {
       'assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif'
     ];
     return {
-      t, faqs, schedule, players, navC, tiers, showTop: this.state.showTop,
+      t, faqs, schedule, players, navC, tiers,
+      passes: tickets.slice(0, 2), boxes: tickets.slice(2), showTop: this.state.showTop,
       progW: this.state.prog + '%',
       menuOpen: this.state.menuOpen,
       toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
