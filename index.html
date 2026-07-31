@@ -67,8 +67,15 @@
   .jpi-burger { display: none; }
   .jpi-arrows { display: none; }
   @media (max-width: 767px) {
+    .jpi-navdesk, .jpi-evcd { height: 42px !important; }
+    .jpi-evcd { padding: 0 13px !important; gap: 6px !important; }
+    .jpi-evcd span:last-child { font-size: 11px !important; letter-spacing: 0.08em !important; }
+  }
+  @media (max-width: 767px) {
     .jpi-navdesk { display: none !important; }
     .jpi-burger { display: flex !important; }
+    .jpi-burger { box-sizing: border-box; height: 42px !important; width: 42px !important; }
+    .jpi-evcd + button { box-sizing: border-box; height: 42px !important; width: 42px !important; }
     .jpi-arrows { display: flex !important; }
     [data-hero="6"] { margin-left: 0 !important; }
     [data-hero="2"] { font-size: 12.4vw !important; }
@@ -100,7 +107,7 @@
   <div aria-hidden="true" id="jpi-prog" style="position:fixed;top:0;left:0;height:4px;z-index:120;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);width:0%;transform-origin:left center;will-change:width"></div>
 
   <div style="position:fixed;top:4px;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px clamp(16px,4vw,64px)">
-    <nav class="jpi-navdesk" style="display:flex;align-items:center;gap:clamp(14px,2.5vw,36px);flex-wrap:wrap;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px clamp(18px,3vw,34px);background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:'Lato',sans-serif">
+    <nav class="jpi-navdesk" style="display:flex;align-items:center;gap:clamp(14px,2.5vw,36px);flex-wrap:wrap;box-sizing:border-box;height:46px;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:0 clamp(18px,3vw,34px);background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:'Lato',sans-serif">
       <a href="#home" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.home }}">{{ t.navHome }}</a>
       <a href="#sobre" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.sobre }}">{{ t.navAbout }}</a>
       <a href="#agenda" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.agenda }}">{{ t.navAgenda }}</a>
@@ -109,8 +116,12 @@
       <a href="#faq" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.faq }}">FAQ</a>
     </nav>
     <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ burgerIcon }}</button>
-    <div style="display:flex;gap:10px">
-      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ themeIcon }}</button>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="jpi-evcd" title="{{ eventCdLabel }}" style="box-sizing:border-box;display:flex;align-items:center;gap:8px;height:46px;padding:0 18px;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
+        <span style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:conic-gradient(#D30F15 {{ secDeg }}, rgba(147,147,147,0.32) 0);-webkit-mask:radial-gradient(circle, transparent 52%, #000 55%);mask:radial-gradient(circle, transparent 52%, #000 55%)"></span>
+        <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.14em;color:#F4F4F4">{{ eventCd }}</span>
+      </div>
+      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="box-sizing:border-box;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ themeIcon }}</button>
     </div>
   </div>
 
@@ -510,7 +521,6 @@ class Component extends DCLogic {
     setTimeout(this._fitHero, 60);
     setTimeout(this._fitHero, 600);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(this._fitHero);
-    this._cdTimer = setInterval(() => this.setState({ now: Date.now() }), 1000);
     window.addEventListener('resize', this._fitHero);
     this._spinLogo = () => {
       const el = document.getElementById('jpi-spin-logo');
@@ -552,6 +562,7 @@ class Component extends DCLogic {
         box.style.opacity = '0';
         document.documentElement.style.overflow = '';
         if (vid) { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); }
+        this._cdTimer = setInterval(() => this.setState({ now: Date.now() }), 1000);
         setTimeout(() => { box.style.display = 'none'; }, 700);
       };
       const tick = () => {
@@ -738,6 +749,13 @@ class Component extends DCLogic {
       }
       return base;
     });
+    const evDiff = new Date('2026-09-26T00:00:00-03:00').getTime() - this.state.now;
+    const evS = Math.max(0, Math.floor(evDiff / 1000));
+    const p2 = (n) => String(n).padStart(2, '0');
+    const eventCd = evS > 0
+      ? Math.floor(evS / 86400) + 'D ' + p2(Math.floor(evS / 3600) % 24) + 'H ' + p2(Math.floor(evS / 60) % 60) + 'M'
+      : 'É HOJE';
+    const secDeg = ((60 - (evS % 60)) % 60) * 6 + 'deg';
     const navC = {};
     ['home', 'sobre', 'agenda', 'ingressos', 'apoiadores', 'faq'].forEach(id => {
       navC[id] = this.state.active === id ? '#F6C444' : '#F4F4F4';
@@ -804,6 +822,7 @@ class Component extends DCLogic {
     ];
     return {
       t, faqs, schedule, players, navC, tiers,
+      eventCd: eventCd, secDeg: secDeg, eventCdLabel: 'Contagem para 26 de setembro de 2026',
       passes: tickets.slice(0, 2), boxes: tickets.slice(2), showTop: this.state.showTop,
       progW: this.state.prog + '%',
       menuOpen: this.state.menuOpen,
