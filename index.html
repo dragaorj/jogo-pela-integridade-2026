@@ -40,6 +40,9 @@
   .jpi-gold:hover { box-shadow: 0 0 26px rgba(246,196,68,0.14); }
   .jpi-silver:hover { box-shadow: 0 0 26px rgba(220,220,220,0.12); }
   .jpi-bronze:hover { box-shadow: 0 0 26px rgba(205,127,50,0.12); }
+  .jpi-evcd::after, .jpi-tip::after { content: attr(data-tip); position: absolute; top: calc(100% + 10px); right: 0; white-space: nowrap; padding: 8px 14px; border-radius: 10px; border: 1px solid rgba(147,147,147,0.4); background: rgba(10,10,10,0.92); backdrop-filter: blur(10px); color: #F4F4F4; font-family: 'Google Sans Flex', Arial, sans-serif; font-size: 12px; letter-spacing: 0.02em; opacity: 0; transform: translateY(-4px); transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; }
+  .jpi-evcd:hover::after, .jpi-evcd:focus::after, .jpi-evcd:active::after,
+  .jpi-tip:hover::after, .jpi-tip:focus::after, .jpi-tip:active::after { opacity: 1; transform: translateY(0); }
   .jpi-expired { opacity: 0.42; filter: saturate(0.55); }
   .jpi-red::after { background-image: linear-gradient(90deg, rgba(211,15,21,0) 0%, #D30F15 20%, #F0141B 35%, #7A090D 50%, #D30F15 70%, rgba(211,15,21,0) 100%); }
   .jpi-red:hover { box-shadow: 0 0 26px rgba(211,15,21,0.18); }
@@ -118,11 +121,11 @@
     </nav>
     <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ burgerIcon }}</button>
     <div style="display:flex;gap:10px;align-items:center">
-      <div class="jpi-evcd" title="{{ eventCdLabel }}" style="box-sizing:border-box;display:flex;align-items:center;gap:8px;height:46px;padding:0 18px;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
+      <div class="jpi-evcd" tabindex="0" data-tip="{{ eventCdLabel }}" style="position:relative;cursor:default;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:46px;padding:0 18px;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
         <span style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:conic-gradient(from 0deg, #7A5A00 0deg, #F6C444 {{ secDeg }}, rgba(147,147,147,0.3) 0);-webkit-mask:radial-gradient(circle, transparent 52%, #000 55%);mask:radial-gradient(circle, transparent 52%, #000 55%)"></span>
         <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.14em;color:#F4F4F4">{{ eventCd }}</span>
       </div>
-      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="box-sizing:border-box;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ themeIcon }}</button>
+      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" class="jpi-tip" data-tip="{{ themeLabel }}" style="position:relative;box-sizing:border-box;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ themeIcon }}</button>
     </div>
   </div>
 
@@ -823,7 +826,7 @@ class Component extends DCLogic {
     ];
     return {
       t, faqs, schedule, players, navC, tiers,
-      eventCd: eventCd, secDeg: secDeg, eventCdLabel: 'Contagem para 26 de setembro de 2026',
+      eventCd: eventCd, secDeg: secDeg, eventCdLabel: evS > 0 ? ('Faltam ' + Math.floor(evS / 86400) + ' dias para o evento no dia 26/09/2026') : 'O evento é hoje: 26/09/2026',
       passes: tickets.slice(0, 2), boxes: tickets.slice(2), showTop: this.state.showTop,
       progW: this.state.prog + '%',
       menuOpen: this.state.menuOpen,
@@ -857,7 +860,7 @@ class Component extends DCLogic {
       openRetro4: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[3]),
       heroL2Size: lang === 'pt' ? 'min(14.7vw,26.5vh)' : 'min(17.6vw,26.5vh)',
       footBg: dark ? '#0A0A0A' : '#EAEAEA',
-      themeLabel: dark ? 'Modo claro' : 'Modo escuro',
+      themeLabel: dark ? 'Ativar modo claro' : 'Ativar modo escuro',
       themeIcon: dark
         ? React.createElement('svg', { width: 19, height: 19, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' },
             React.createElement('circle', { cx: 12, cy: 12, r: 4.2 }),
