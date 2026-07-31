@@ -236,6 +236,12 @@
                 <div style="display:flex;gap:10px;font-size:13px;line-height:1.55;color:{{ fgSoft }}"><span style="flex:0 0 auto;color:#D30F15">::</span><span>{{ it }}</span></div>
               </sc-for>
             </div>
+            <sc-if value="{{ tk.warn }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid {{ line }};padding-top:12px;font-size:12px;line-height:1.5;color:#F6C444">{{ tk.warn }}</div>
+            </sc-if>
+            <sc-if value="{{ tk.note }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px;line-height:1.5;color:{{ fgSoft }}">{{ tk.note }}</div>
+            </sc-if>
           </div>
         </sc-for>
       </div>
@@ -628,8 +634,8 @@ class Component extends DCLogic {
       ticketsEyebrow: 'INGRESSOS',
       ticketsTitle: 'CATEGORIAS DE INGRESSO',
       ticketItems: [
-        { type: 'Passaporte Individual Completo', price: 'R$ 600,00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo (apenas o jogador)', 'Kit de uniforme completo: 01 camisa treino; 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: 'Atenção: a chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: 'Vendas de passaporte individual até 18 de setembro' },
-        { type: 'Passaporte Família Completo', price: 'R$ 960,00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo do jogador + 02 convidados', 'Kit de uniforme completo: 01 camisa treino; 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '', note: '' },
+        { type: 'Passaporte Individual Completo', price: 'R$ 600,00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo (apenas o jogador)', 'Kit de uniforme completo: 01 camisa treino; 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '*Atenção: A chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: 'Vendas de passaporte individual até 18 de setembro' },
+        { type: 'Passaporte Família Completo', price: 'R$ 960,00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo do jogador + 02 convidados', 'Kit de uniforme completo: 01 camisa treino; 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '*Atenção: A chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: '' },
         { type: 'Camarote Individual', price: 'R$ 300,00', includes: ['01 Acesso livre ao camarote durante o jogo'], warn: '', note: '' },
         { type: 'Camarote Família', price: 'R$ 720,00', includes: ['03 Acessos livres ao camarote durante o jogo'], warn: '', note: '' },
         { type: 'Camarote Infantil', price: 'R$ 150,00', includes: ['01 Acesso livre ao camarote durante o jogo para criança de 03 a 06 anos'], warn: '', note: '' }
@@ -687,7 +693,12 @@ class Component extends DCLogic {
     const t = pt;
     const metals = ['jpi-gold', 'jpi-silver', 'jpi-bronze', 'jpi-bronze', 'jpi-bronze'];
     const num = (p) => parseFloat(p.replace(/[^\d,]/g, '').replace(',', '.'));
-    const tickets = t.ticketItems.slice().sort((a, b) => num(b.price) - num(a.price)).map((x, i) => Object.assign({}, x, { metal: metals[i] || 'jpi-bronze' }));
+    const order = ['R$ 960,00', 'R$ 600,00', 'R$ 720,00', 'R$ 300,00', 'R$ 150,00'];
+    const tickets = t.ticketItems.slice().sort((a, b) => {
+      const ia = order.indexOf(a.price), ib = order.indexOf(b.price);
+      if (ia >= 0 && ib >= 0) return ia - ib;
+      return num(b.price) - num(a.price);
+    }).map((x, i) => Object.assign({}, x, { metal: metals[i] || 'jpi-bronze' }));
     const navC = {};
     ['home', 'sobre', 'agenda', 'ingressos', 'apoiadores', 'faq'].forEach(id => {
       navC[id] = this.state.active === id ? '#F6C444' : '#F4F4F4';
