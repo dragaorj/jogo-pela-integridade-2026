@@ -34,7 +34,7 @@
   .jpi-tkt { position: relative; }
   .jpi-tkt::after { content: ''; position: absolute; inset: 0; padding: 1px; opacity: 0; transition: opacity 0.45s ease; pointer-events: none; background-size: 200% 100%; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; }
   .jpi-tkt:hover::after { opacity: 1; animation: jpiShimmer 2.6s linear infinite; }
-  .jpi-gold::after { background-image: linear-gradient(90deg, rgba(246,196,68,0) 0%, #F6C444 20%, #FFF6D2 35%, #B8860B 50%, #F6C444 70%, rgba(246,196,68,0) 100%); }
+  .jpi-gold::after { background-image: linear-gradient(90deg, rgba(221,165,29,0) 0%, #DDA51D 20%, #FFF6D2 35%, #B8860B 50%, #DDA51D 70%, rgba(221,165,29,0) 100%); }
   .jpi-silver::after { background-image: linear-gradient(90deg, rgba(230,230,230,0) 0%, #C9C9C9 20%, #FFFFFF 35%, #8A8A8A 50%, #D8D8D8 70%, rgba(230,230,230,0) 100%); }
   .jpi-bronze::after { background-image: linear-gradient(90deg, rgba(205,127,50,0) 0%, #CD7F32 20%, #F0B27A 35%, #8C5A21 50%, #CD7F32 70%, rgba(205,127,50,0) 100%); }
   .jpi-gold:hover { box-shadow: 0 0 26px rgba(246,196,68,0.14); }
@@ -50,7 +50,7 @@
 
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
   a { color: inherit; text-decoration: none; }
-  a:hover { color: #F6C444; }
+  a:hover { color: #DDA51D; }
   .jpi-cta .jpi-arrow { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
   .jpi-cta:hover .jpi-arrow { transform: rotate(-45deg); }
   .jpi-cta { transition: box-shadow 0.35s ease; }
@@ -120,13 +120,13 @@
       <a href="#apoiadores" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.apoiadores }}">{{ t.navSupporters }}</a>
       <a href="#faq" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.faq }}">FAQ</a>
     </nav>
-    <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ burgerIcon }}</button>
+    <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#DDA51D">{{ burgerIcon }}</button>
     <div style="display:flex;gap:10px;align-items:center">
       <div class="jpi-evcd" tabindex="0" data-tip="{{ eventCdLabel }}" style="position:relative;cursor:default;box-sizing:border-box;display:flex;align-items:center;gap:8px;height:46px;padding:0 18px;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
-        <span style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:conic-gradient(from 0deg, #7A5A00 0deg, #F6C444 {{ secDeg }}, rgba(147,147,147,0.3) 0);-webkit-mask:radial-gradient(circle, transparent 52%, #000 55%);mask:radial-gradient(circle, transparent 52%, #000 55%)"></span>
+        <span style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:conic-gradient(from 0deg, #7A5A00 0deg, #DDA51D {{ secDeg }}, rgba(147,147,147,0.3) 0);-webkit-mask:radial-gradient(circle, transparent 52%, #000 55%);mask:radial-gradient(circle, transparent 52%, #000 55%)"></span>
         <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.14em;color:#F4F4F4">{{ eventCd }}</span>
       </div>
-      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" class="jpi-tip" data-tip="{{ themeLabel }}" style="position:relative;box-sizing:border-box;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ themeIcon }}</button>
+      <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" class="jpi-tip" data-tip="{{ themeLabel }}" style="position:relative;box-sizing:border-box;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;padding:0;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#DDA51D">{{ themeIcon }}</button>
     </div>
   </div>
 
@@ -152,7 +152,7 @@
       <div data-hero="1" style="font-size:max(26px,min(6.1vw,11vh));letter-spacing:0.03em;padding-left:0">{{ t.heroL1 }}</div>
       <div data-hero="2" style="font-size:max(32px,{{ heroL2Size }});padding-left:0;white-space:nowrap;margin-top:clamp(6px,1.6vw,34px);letter-spacing:0.01em">{{ t.heroL2 }}</div>
       <div style="display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:baseline;gap:clamp(14px,2vw,32px);margin-top:clamp(4px,0.6vw,14px)">
-        <div data-hero="4" style="flex:1 1 auto;min-width:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(15px,1.25vw,26px);letter-spacing:0.05em;color:#F6C444">{{ t.heroSub }}</div>
+        <div data-hero="4" style="flex:1 1 auto;min-width:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(15px,1.25vw,26px);letter-spacing:0.05em;color:#DDA51D">{{ t.heroSub }}</div>
         <div data-hero="3" style="flex:0 0 auto;margin-left:auto;font-family:'Lato',sans-serif;font-size:max(26px,min(6.1vw,11vh));line-height:1;letter-spacing:0.04em;color:#F4F4F4">2026</div>
       </div>
     </div>
@@ -167,7 +167,7 @@
       </a>
     </div>
     <div style="position:absolute;z-index:1;left:0;right:0;bottom:clamp(26px,5vh,54px);display:flex;justify-content:center;pointer-events:none">
-      <a data-hero="7" href="#sobre" style="pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 16px;color:#F4F4F4" style-hover="color:#F6C444">
+      <a data-hero="7" href="#sobre" style="pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 16px;color:#F4F4F4" style-hover="color:#DDA51D">
         <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.2em">{{ t.scrollHint }}</span>
         <span style="display:flex;font-size:22px;line-height:1;animation:jpiBounce 1.6s ease-in-out infinite">&#8595;</span>
       </a>
@@ -192,7 +192,7 @@
   <section data-screen-label="Agenda" id="agenda" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(32px,5vw,56px)">
-        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.agendaEyebrow }}</div>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">{{ t.agendaEyebrow }}</div>
         <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.agendaTitle }}</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px">
@@ -219,7 +219,7 @@
   <section data-screen-label="Ingressos" id="ingressos" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(32px,5vw,56px)">
-        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.ticketsEyebrow }}</div>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">{{ t.ticketsEyebrow }}</div>
         <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.ticketsTitle }}</h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:18px">
@@ -235,7 +235,7 @@
               </sc-for>
             </div>
             <sc-if value="{{ tk.warn }}" hint-placeholder-val="{{ false }}">
-              <div style="border-top:1px solid {{ line }};padding-top:12px;font-size:12px;line-height:1.5;color:#F6C444">{{ tk.warn }}</div>
+              <div style="border-top:1px solid {{ line }};padding-top:12px;font-size:12px;line-height:1.5;color:#DDA51D">{{ tk.warn }}</div>
             </sc-if>
             <sc-if value="{{ tk.note }}" hint-placeholder-val="{{ false }}">
               <div style="font-size:12px;line-height:1.5;color:{{ fgSoft }}">{{ tk.note }}</div>
@@ -269,7 +269,7 @@
               </sc-for>
             </div>
             <sc-if value="{{ tk.warn }}" hint-placeholder-val="{{ false }}">
-              <div style="border-top:1px solid {{ line }};padding-top:12px;font-size:12px;line-height:1.5;color:#F6C444">{{ tk.warn }}</div>
+              <div style="border-top:1px solid {{ line }};padding-top:12px;font-size:12px;line-height:1.5;color:#DDA51D">{{ tk.warn }}</div>
             </sc-if>
             <sc-if value="{{ tk.note }}" hint-placeholder-val="{{ false }}">
               <div style="font-size:12px;line-height:1.5;color:{{ fgSoft }}">{{ tk.note }}</div>
@@ -309,7 +309,7 @@
     <div style="max-width:1440px;margin:0 auto">
       <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,64px)">
         <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;flex:1 1 340px">
-          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.teamEyebrow }}</div>
+          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">{{ t.teamEyebrow }}</div>
           <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.teamTitle }}</h2>
         </div>
         <p data-anim="up" style="margin:0;flex:1 1 380px;max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.teamP }}</p>
@@ -323,7 +323,7 @@
       </div>
       <div class="jpi-roster" ref="{{ rosterRef }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px">
         <sc-for list="{{ players }}" as="p" hint-placeholder-count="5">
-          <div class="jpi-card" onClick="{{ p.open }}" style="display:flex;flex-direction:column;border-left:3px solid #F6C444;border-radius:0 12px 12px 0;overflow:hidden;background:{{ cardBg }}">
+          <div class="jpi-card" onClick="{{ p.open }}" style="display:flex;flex-direction:column;border-left:3px solid #DDA51D;border-radius:0 12px 12px 0;overflow:hidden;background:{{ cardBg }}">
             <div style="aspect-ratio:3/4;overflow:hidden"><img src="{{ p.src }}" alt="{{ p.name }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center top"></div>
             <div class="jpi-pinfo" style="padding:12px 14px;display:flex;flex-direction:column;gap:4px">
               <div class="jpi-pname" style="font-family:'Lato',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.04em;color:{{ fg }}">{{ p.name }}</div>
@@ -342,7 +342,7 @@
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(32px,5vw,56px)">
         <div style="display:flex;flex-direction:column;gap:14px">
-          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.schedEyebrow }}</div>
+          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">{{ t.schedEyebrow }}</div>
           <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.schedTitle }}</h2>
         </div>
         <div style="font-size:12px;letter-spacing:0.2em;color:#939393">{{ t.schedTbc }}</div>
@@ -363,7 +363,7 @@
     <div style="max-width:1440px;margin:0 auto">
       <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,56px)">
         <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;flex:1 1 340px">
-          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.supEyebrow }}</div>
+          <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">{{ t.supEyebrow }}</div>
           <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.supTitle }}</h2>
         </div>
         <p data-anim="up" style="margin:0;flex:1 1 380px;max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.supP }}</p>
@@ -388,7 +388,7 @@
   <section data-screen-label="Retrospectiva" id="retrospectiva" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
     <div style="max-width:1440px;margin:0 auto">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
-        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.retroEyebrow }}</div>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">{{ t.retroEyebrow }}</div>
         <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.retroTitle }}</h2>
       </div>
       <p data-anim="up" style="margin:0 0 clamp(32px,5vw,48px);max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.retroP }}</p>
@@ -409,7 +409,7 @@
   <section data-screen-label="FAQ" id="faq" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
     <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,96px)">
       <div data-anim="up" style="display:flex;flex-direction:column;gap:14px">
-        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#F6C444">FAQ</div>
+        <div style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#DDA51D">FAQ</div>
         <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.faqTitle }}</h2>
       </div>
       <div style="display:flex;flex-direction:column">
@@ -458,20 +458,20 @@
       <div style="font-family:'Lato',sans-serif;font-weight:700;line-height:1;color:{{ fg }}">
         <div style="display:flex;flex-wrap:nowrap;align-items:baseline;gap:clamp(8px,1.2vw,24px);font-size:min(clamp(20px,4.6vw,88px),5.1vw);white-space:nowrap;letter-spacing:0.02em"><span>{{ t.brand }}</span><span style="letter-spacing:0.04em">2026</span></div>
         <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(10px,1.2vw,22px)">
-          <div style="font-family:'Lato',sans-serif;font-size:clamp(13px,1vw,19px);letter-spacing:0.12em;color:#F6C444">{{ t.heroSub }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:clamp(13px,1vw,19px);letter-spacing:0.12em;color:#DDA51D">{{ t.heroSub }}</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px;margin-top:clamp(40px,5vw,72px);padding-top:clamp(28px,3vw,44px);border-top:1px solid {{ line }}">
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerOrgLabel }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#DDA51D">{{ t.footerOrgLabel }}</div>
           <div style="font-size:13px;line-height:1.7;color:{{ fgSoft }}">{{ t.footerOrg }}</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerContactLabel }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#DDA51D">{{ t.footerContactLabel }}</div>
           <div style="font-size:13px;line-height:1.7;color:{{ fgSoft }}">{{ t.footerContact }}</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerNavLabel }}</div>
+          <div style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#DDA51D">{{ t.footerNavLabel }}</div>
           <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
             <a href="#sobre" style="font-size:13px;color:{{ fg }}">{{ t.navAbout }}</a>
             <a href="#agenda" style="font-size:13px;color:{{ fg }}">{{ t.navAgenda }}</a>
@@ -486,7 +486,7 @@
       <div>{{ t.rights }}</div>
       <div>{{ t.devBy }} <a href="https://fyw.com.br/" target="_blank" rel="noopener" style="font-weight:700;color:{{ fg }}">Fyw</a></div>
     </div>
-    <div aria-hidden="true" style="height:6px;background:linear-gradient(90deg,#7A090D 0%,#D30F15 50%,#F6C444 100%)"></div>
+    <div aria-hidden="true" style="height:6px;background:linear-gradient(90deg,#7A090D 0%,#D30F15 50%,#DDA51D 100%)"></div>
   </footer>
 </div>
 </x-dc>
@@ -762,7 +762,7 @@ class Component extends DCLogic {
     const secDeg = ((60 - (evS % 60)) % 60) * 6 + 'deg';
     const navC = {};
     ['home', 'sobre', 'agenda', 'ingressos', 'apoiadores', 'faq'].forEach(id => {
-      navC[id] = this.state.active === id ? '#F6C444' : '#F4F4F4';
+      navC[id] = this.state.active === id ? '#DDA51D' : '#F4F4F4';
     });
     const faqs = t.faqItems.map((f, i) => ({
       ...f, open: this.state.open === i, sign: this.state.open === i ? '\u2212' : '+',
@@ -851,7 +851,7 @@ class Component extends DCLogic {
       rosterBtnLabel: this.state.showAllPlayers ? (lang === 'pt' ? 'Ver menos' : 'Show less') : (lang === 'pt' ? 'Ver mais' : 'Show more'),
       toggleRoster: () => this.setState(s => ({ showAllPlayers: !s.showAllPlayers })),
       lightboxOn: !!this.state.lightbox,
-      lightboxImg: this.state.lightbox ? React.createElement('img', { src: this.state.lightbox.src, alt: this.state.lightbox.name, style: { maxWidth: '92vw', maxHeight: '82vh', objectFit: 'contain', borderRadius: 10, borderLeft: '3px solid #F6C444' } }) : null,
+      lightboxImg: this.state.lightbox ? React.createElement('img', { src: this.state.lightbox.src, alt: this.state.lightbox.name, style: { maxWidth: '92vw', maxHeight: '82vh', objectFit: 'contain', borderRadius: 10, borderLeft: '3px solid #DDA51D' } }) : null,
       lightboxName: this.state.lightbox ? this.state.lightbox.name : '',
       closeLightbox: () => this.setState({ lightbox: null }),
       openRetro1: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[0]),
@@ -875,7 +875,7 @@ class Component extends DCLogic {
       fg: dark ? '#F4F4F4' : '#111111',
       fgSoft: dark ? '#B9B9B9' : '#5A5A5A',
       line: dark ? 'rgba(255,255,255,0.16)' : 'rgba(17,17,17,0.16)',
-      accentOrFg: '#F6C444',
+      accentOrFg: '#DDA51D',
       phA: dark ? '#171717' : '#E9E9E9',
       phB: dark ? '#1F1F1F' : '#DFDFDF'
     };
