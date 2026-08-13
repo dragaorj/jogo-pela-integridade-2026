@@ -668,10 +668,10 @@ class Component extends DCLogic {
       ticketsEyebrow: 'INGRESSOS',
       ticketsTitle: 'CATEGORIAS DE INGRESSO',
       ticketItems: [
-        { type: 'Passaporte Individual Completo', price: 'R$ 800,00', deadline: '2026-09-18T23:59:59-03:00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo (apenas o jogador)', 'Kit de uniforme completo: 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '*Atenção: A chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: '' },
-        { type: 'Passaporte Família Completo', price: 'R$ 1.200,00', deadline: '2026-09-18T23:59:59-03:00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo do jogador + 02 convidados', 'Kit de uniforme completo: 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '*Atenção: A chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: '' },
-        { type: 'Camarote Individual', price: 'R$ 300,00', includes: ['01 Acesso livre ao camarote durante o jogo'], warn: '', note: '' },
-        { type: 'Camarote Infantil', price: 'R$ 150,00', includes: ['01 Acesso livre ao camarote durante o jogo para criança de 03 a 06 anos'], warn: '', note: '' }
+        { type: 'Passaporte Individual Completo', price: 'R$ 490,00', deadline: '2026-09-18T23:59:59-03:00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo (apenas o jogador)', 'Kit de uniforme completo: 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '*Atenção: A chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: '' },
+        { type: 'Passaporte Família Completo', price: 'R$ 590,00', deadline: '2026-09-18T23:59:59-03:00', includes: ['Participação de 01 jogador no jogo', 'Acesso livre ao camarote durante o jogo do jogador + 02 convidados', 'Kit de uniforme completo: 01 kit uniforme completo de jogo personalizado (camisa, shorts e meião)'], warn: '*Atenção: A chuteira não está incluída no kit. É obrigatório que cada participante leve sua própria chuteira, sem travas.', note: '' },
+        { type: 'Camarote Individual', price: 'R$ 290,00', includes: ['01 Acesso livre ao camarote durante o jogo'], warn: '', note: '' },
+        { type: 'Camarote Infantil', price: 'R$ 90,00', includes: ['01 Acesso livre ao camarote durante o jogo para criança de 03 a 06 anos'], warn: '', note: '' }
       ],
       ticketNotes: [
         '*Crianças abaixo de 02 anos não pagam.',
@@ -726,7 +726,7 @@ class Component extends DCLogic {
     const t = pt;
     const metals = ['jpi-gold', 'jpi-silver', 'jpi-bronze', 'jpi-bronze', 'jpi-bronze'];
     const num = (p) => parseFloat(p.replace(/[^\d,]/g, '').replace(',', '.'));
-    const order = ['R$ 1.200,00', 'R$ 800,00', 'R$ 300,00', 'R$ 150,00'];
+    const order = ['R$ 590,00', 'R$ 490,00', 'R$ 290,00', 'R$ 90,00'];
     const tickets = t.ticketItems.slice().sort((a, b) => {
       const ia = order.indexOf(a.price), ib = order.indexOf(b.price);
       if (ia >= 0 && ib >= 0) return ia - ib;
