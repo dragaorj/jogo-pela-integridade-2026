@@ -44,6 +44,8 @@
   @keyframes jpiTip { 0% { opacity: 0; transform: translateY(-4px); } 14% { opacity: 1; transform: translateY(0); } 72% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-2px); } }
   .jpi-evcd:hover::after, .jpi-evcd:focus::after, .jpi-evcd:active::after,
   .jpi-tip:hover::after, .jpi-tip:focus::after, .jpi-tip:active::after { animation: jpiTip 2s ease forwards; }
+  .jpi-noscroll { scrollbar-width: none; -ms-overflow-style: none; }
+  .jpi-noscroll::-webkit-scrollbar { display: none; }
   .jpi-expired { opacity: 0.42; filter: saturate(0.55); }
   .jpi-red::after { background-image: linear-gradient(90deg, rgba(211,15,21,0) 0%, #D30F15 20%, #F0141B 35%, #7A090D 50%, #D30F15 70%, rgba(211,15,21,0) 100%); }
   .jpi-red:hover { box-shadow: 0 0 26px rgba(211,15,21,0.18); }
@@ -185,6 +187,7 @@
       <div data-anim="up" style="font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.25em;color:#D30F15">{{ t.aboutEyebrow }}</div>
       <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fg }}">{{ t.aboutP1 }}</p>
       <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.aboutP2 }}</p>
+      <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.aboutP3 }}</p>
       <img data-anim="up" src="assets/times.svg" alt="Times do Jogo pela Integridade" style="display:block;width:100%;max-width:400px;height:auto;margin-top:8px" />
     </div>
   </section>
@@ -394,15 +397,33 @@
         <h2 style="margin:0;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.retroTitle }}</h2>
       </div>
       <p data-anim="up" style="margin:0 0 clamp(32px,5vw,48px);max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.retroP }}</p>
-      <div data-anim="up" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px">
-        <div class="jpi-mosaic" onClick="{{ openRetro1 }}" style="min-height:320px;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif');background-size:cover;background-position:center"></div>
-        <div style="display:grid;grid-template-rows:auto 1fr;gap:14px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-            <div class="jpi-mosaic" onClick="{{ openRetro2 }}" style="aspect-ratio:16/13;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabee778a4893a82ea53_summit-integridade_image2.avif');background-size:cover;background-position:center top"></div>
-            <div class="jpi-mosaic" onClick="{{ openRetro3 }}" style="aspect-ratio:16/13;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabe40264726799bb313_summit-integridade_image3.avif');background-size:cover;background-position:center top"></div>
-          </div>
-          <div class="jpi-mosaic" onClick="{{ openRetro4 }}" style="min-height:220px;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif');background-size:cover;background-position:center"></div>
+      <div data-anim="up" style="position:relative">
+        <div ref="{{ retroRef }}" class="jpi-noscroll" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;gap:0">
+          <sc-for list="{{ retroPages }}" as="pg" hint-placeholder-count="1">
+            <div style="flex:0 0 100%;min-width:100%;scroll-snap-align:start;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px">
+              <div class="jpi-mosaic" onClick="{{ pg.open1 }}" style="min-height:320px;border-radius:12px;overflow:hidden;background-image:{{ pg.bg1 }};background-size:cover;background-position:center"></div>
+              <div style="display:grid;grid-template-rows:auto 1fr;gap:14px">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <div class="jpi-mosaic" onClick="{{ pg.open2 }}" style="aspect-ratio:16/13;border-radius:12px;overflow:hidden;background-image:{{ pg.bg2 }};background-size:cover;background-position:center top"></div>
+                  <div class="jpi-mosaic" onClick="{{ pg.open3 }}" style="aspect-ratio:16/13;border-radius:12px;overflow:hidden;background-image:{{ pg.bg3 }};background-size:cover;background-position:center top"></div>
+                </div>
+                <div class="jpi-mosaic" onClick="{{ pg.open4 }}" style="min-height:220px;border-radius:12px;overflow:hidden;background-image:{{ pg.bg4 }};background-size:cover;background-position:center"></div>
+              </div>
+            </div>
+          </sc-for>
         </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-top:26px">
+        <button onClick="{{ retroPrev }}" aria-label="Anterior" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5"></path><path d="M11 6l-6 6 6 6"></path></svg></button>
+        <div style="display:flex;align-items:center;gap:10px">
+          <sc-for list="{{ retroDots }}" as="d" hint-placeholder-count="3">
+            <button onClick="{{ d.go }}" aria-label="{{ d.label }}" style="cursor:pointer;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;background:transparent">
+              <span style="display:block;width:{{ d.w }};height:3px;border-radius:999px;background:{{ d.color }};transition:background 0.3s,width 0.3s"></span>
+              <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.14em;color:{{ d.color }};transition:color 0.3s">{{ d.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <button onClick="{{ retroNext }}" aria-label="Próximo" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></button>
       </div>
     </div>
   </section>
@@ -493,8 +514,22 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+const RETRO_YEARS = [
+  { year: '2023', photos: ['assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif', 'assets/68d6aabee778a4893a82ea53_summit-integridade_image2.avif', 'assets/68d6aabe40264726799bb313_summit-integridade_image3.avif', 'assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif'] },
+  { year: '2024', photos: ['assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif', 'assets/68d6aabee778a4893a82ea53_summit-integridade_image2.avif', 'assets/68d6aabe40264726799bb313_summit-integridade_image3.avif', 'assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif'] },
+  { year: '2025', photos: ['assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif', 'assets/68d6aabee778a4893a82ea53_summit-integridade_image2.avif', 'assets/68d6aabe40264726799bb313_summit-integridade_image3.avif', 'assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif'] }
+];
 class Component extends DCLogic {
-  state = { now: Date.now(), theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
+  _retroRef = React.createRef();
+  _retroGo(i, manual) {
+    if (manual) { this._retroHold = true; clearTimeout(this._retroHoldT); this._retroHoldT = setTimeout(() => { this._retroHold = false; }, 8000); }
+    const el = this._retroRef && this._retroRef.current;
+    const n = RETRO_YEARS.length;
+    const idx = ((i % n) + n) % n;
+    this.setState({ retroPage: idx });
+    if (el) el.scrollTo({ left: el.clientWidth * idx, behavior: 'smooth' });
+  }
+  state = { retroPage: 0, now: Date.now(), theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
   componentDidMount() {
     this._fitHero = () => {
       const el = document.querySelector('[data-hero="2"]');
@@ -528,6 +563,24 @@ class Component extends DCLogic {
     setTimeout(this._fitHero, 60);
     setTimeout(this._fitHero, 600);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(this._fitHero);
+    this._retroTimer = setInterval(() => {
+      if (this._retroHold) return;
+      this._retroGo(this.state.retroPage + 1);
+    }, 5000);
+    setTimeout(() => {
+      const el = this._retroRef && this._retroRef.current;
+      if (!el) return;
+      this._retroSync = () => {
+        clearTimeout(this._retroSyncT);
+        this._retroSyncT = setTimeout(() => {
+          const i = Math.round(el.scrollLeft / Math.max(1, el.clientWidth));
+          if (i !== this.state.retroPage) this.setState({ retroPage: i });
+        }, 120);
+      };
+      el.addEventListener('scroll', this._retroSync, { passive: true });
+      ['pointerdown','touchstart'].forEach(e => el.addEventListener(e, () => { this._retroHold = true; clearTimeout(this._retroHoldT); }, { passive: true }));
+      ['pointerup','touchend','mouseleave'].forEach(e => el.addEventListener(e, () => { clearTimeout(this._retroHoldT); this._retroHoldT = setTimeout(() => { this._retroHold = false; }, 6000); }, { passive: true }));
+    }, 500);
     window.addEventListener('resize', this._fitHero);
     this._spinLogo = () => {
       const el = document.getElementById('jpi-spin-logo');
@@ -660,6 +713,7 @@ class Component extends DCLogic {
     clearTimeout(this._fitT);
     clearInterval(this._rosterTimer); clearTimeout(this._holdT);
     clearInterval(this._cdTimer);
+    clearInterval(this._retroTimer); clearTimeout(this._retroHoldT); clearTimeout(this._retroSyncT);
   }
   renderVals() {
     const lang = 'pt';
@@ -686,8 +740,9 @@ class Component extends DCLogic {
       scrollHint: 'ROLE A PÁGINA',
       videoSoundLabel: 'Ativar som',
       aboutEyebrow: 'SOBRE O JOGO', aboutTitle: 'UM CAMPO ABERTO PARA A MUDANÇA',
-      aboutP1: 'O Jogo pela Integridade é uma partida simbólica que reúne participantes em equipes mistas, formadas em torno de causas fundamentais para o esporte e para a sociedade — como Saúde Mental, Enfrentamento ao Racismo, Sustentabilidade e Igualdade de Gênero.',
-      aboutP2: 'Mais do que uma partida, é um convite à reflexão: usar a força do futebol para colocar em campo temas que exigem atenção, diálogo e ação coletiva.',
+      aboutP1: 'O Jogo pela Integridade é uma partida simbólica e festiva que reúne times mistos, formados por profissionais de diversas áreas — a maioria da comunidade de compliance —, organizados em torno de causas fundamentais para o esporte e para a sociedade, como Saúde Mental, Enfrentamento ao Racismo, Sustentabilidade e Igualdade de Gênero.',
+      aboutP2: 'A partida não conta com árbitro — um gesto simbólico: a proposta é que as regras sejam respeitadas por escolha, não por fiscalização. Um reflexo, em campo, do que se espera de uma cultura de integridade consolidada: comportamento ético que independe de vigilância constante.',
+      aboutP3: 'Mais do que uma partida, é um convite à reflexão: usar a força do futebol para colocar em campo temas que exigem atenção, diálogo e ação coletiva.',
       causes: ['SAÚDE MENTAL', 'ENFRENTAMENTO AO RACISMO', 'SUSTENTABILIDADE', 'IGUALDADE DE GÊNERO'],
       agendaEyebrow: 'DATA, HORA E LOCAL', agendaTitle: 'MARQUE NA AGENDA',
       gcalLabel: 'Adicionar ao Google Agenda',
@@ -710,7 +765,7 @@ class Component extends DCLogic {
       retroPhotos: ['foto — edição 2023', 'foto — edição 2024', 'foto — edição 2025'],
       faqTitle: 'PERGUNTAS FREQUENTES',
       faqItems: [
-        { q: 'O que é o Jogo pela Integridade?', a: 'É uma partida festiva que reúne ex-jogadores lendários, artistas, influenciadores, CEOs e autoridades para celebrar os valores do esporte e dar visibilidade a causas relevantes para a sociedade.' },
+        { q: 'O que é o Jogo pela Integridade?', a: 'O Jogo pela Integridade é uma partida simbólica e festiva que reúne times mistos, formados por profissionais de diversas áreas — a maioria da comunidade de compliance —, organizados em torno de causas fundamentais para o esporte e para a sociedade, como Saúde Mental, Enfrentamento ao Racismo, Sustentabilidade e Igualdade de Gênero. A partida não conta com árbitro — um gesto simbólico: a proposta é que as regras sejam respeitadas por escolha, não por fiscalização. Um reflexo, em campo, do que se espera de uma cultura de integridade consolidada: comportamento ético que independe de vigilância constante. Mais do que uma partida, é um convite à reflexão: usar a força do futebol para colocar em campo temas que exigem atenção, diálogo e ação coletiva.' },
         { q: 'Quando e onde acontece o jogo?', a: '26/09/2026, no Estádio MorumBIS. Avenida Giovanni Gronchi, altura do Portão 17.' },
         { q: 'Quem pode participar?', a: 'O evento é fechado para convidados.' },
         { q: 'Como funcionam as equipes?', a: 'Os participantes são divididos em equipes mistas, cada uma representando uma causa relevante para o esporte e a sociedade.' },
@@ -855,10 +910,22 @@ class Component extends DCLogic {
       lightboxImg: this.state.lightbox ? React.createElement('img', { src: this.state.lightbox.src, alt: this.state.lightbox.name, style: { maxWidth: '92vw', maxHeight: '82vh', objectFit: 'contain', borderRadius: 10, borderLeft: '3px solid #DDA51D' } }) : null,
       lightboxName: this.state.lightbox ? this.state.lightbox.name : '',
       closeLightbox: () => this.setState({ lightbox: null }),
-      openRetro1: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[0]),
-      openRetro2: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[1]),
-      openRetro3: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[2]),
-      openRetro4: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[3]),
+      retroRef: this._retroRef,
+      retroPages: RETRO_YEARS.map(y => ({
+        year: y.year,
+        bg1: "url('" + y.photos[0] + "')", bg2: "url('" + y.photos[1] + "')",
+        bg3: "url('" + y.photos[2] + "')", bg4: "url('" + y.photos[3] + "')",
+        open1: openLb(y.year, y.photos[0]), open2: openLb(y.year, y.photos[1]),
+        open3: openLb(y.year, y.photos[2]), open4: openLb(y.year, y.photos[3])
+      })),
+      retroDots: RETRO_YEARS.map((y, i) => ({
+        label: y.year,
+        color: this.state.retroPage === i ? '#DDA51D' : '#939393',
+        w: this.state.retroPage === i ? '34px' : '18px',
+        go: () => this._retroGo(i, true)
+      })),
+      retroPrev: () => this._retroGo(this.state.retroPage - 1, true),
+      retroNext: () => this._retroGo(this.state.retroPage + 1, true),
       heroL2Size: lang === 'pt' ? 'min(14.7vw,26.5vh)' : 'min(17.6vw,26.5vh)',
       footBg: dark ? '#0A0A0A' : '#EAEAEA',
       themeLabel: dark ? 'Ativar modo claro' : 'Ativar modo escuro',
